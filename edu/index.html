@@ -68,7 +68,11 @@
   .topnav a:hover{opacity:.5;}
   header.site{transition:background .4s var(--ease),backdrop-filter .4s var(--ease);}
   header.site.scrolled{background:rgba(14,14,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  @media (min-width:861px){ .topnav{display:flex;} .menu-toggle{display:none;} }
+  @media (min-width:981px){ .topnav{display:flex;} .menu-toggle{display:none;} }
+/* 외부 사이트로 나가는 메뉴는 화살표로 예고 */
+.topnav a[target="_blank"]::after{content:"\2197";font-size:.75em;margin-left:3px;opacity:.45;vertical-align:top;}
+.overlay a[target="_blank"] .idx::after{content:" \2197";}
+
   .overlay{position:fixed;inset:0;z-index:150;background:var(--bg);
     display:flex;flex-direction:column;justify-content:center;padding:0 24px;
     clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--ease);pointer-events:none;}
@@ -245,10 +249,10 @@
   <nav class="topnav" aria-label="주요 메뉴">
     <a href="https://www.shoocreamvillage.com/ai-lectures" target="_blank" rel="noopener">강사 소개</a>
     <a href="https://shoocreamvillage.notion.site/1675e8593cb68236869b81175250da57?pvs=105" target="_blank" rel="noopener">알림 신청</a>
-    <a href="https://oshooni.github.io/ai/1day/" target="_blank" rel="noopener">원데이 클래스</a>
-    <a href="https://oshooni.github.io/ai/class" target="_blank" rel="noopener">정규 강의</a>
+    <a href="/ai/1day/">원데이 클래스</a>
+    <a href="/ai/class/">정규 강의</a>
     <a href="#products">기업 강의</a>
-    <a href="/ai/blog">블로그</a>
+    <a href="/ai/blog/">블로그</a>
     <a href="https://shoocreamvillage.notion.site/aireview?v=3b85e8593cb680afabf7000c0745be0d&source=copy_link" target="_blank" rel="noopener">후기</a>
     <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의</a>
   </nav>
@@ -258,10 +262,10 @@
 <nav class="overlay" aria-label="주요 메뉴">
       <a href="https://www.shoocreamvillage.com/ai-lectures" target="_blank" rel="noopener">강사 소개<span class="idx">01</span></a>
   <a href="https://shoocreamvillage.notion.site/1675e8593cb68236869b81175250da57?pvs=105" target="_blank" rel="noopener">알림 신청<span class="idx">02</span></a>
-  <a href="https://oshooni.github.io/ai/1day/" target="_blank" rel="noopener">원데이 클래스<span class="idx">03</span></a>
-  <a href="https://oshooni.github.io/ai/class" target="_blank" rel="noopener">정규 강의<span class="idx">04</span></a>
+  <a href="/ai/1day/">원데이 클래스<span class="idx">03</span></a>
+  <a href="/ai/class/">정규 강의<span class="idx">04</span></a>
   <a href="#products">기업 강의<span class="idx">05</span></a>
-  <a href="/ai/blog">블로그<span class="idx">06</span></a>
+  <a href="/ai/blog/">블로그<span class="idx">06</span></a>
   <a href="https://shoocreamvillage.notion.site/aireview?v=3b85e8593cb680afabf7000c0745be0d&source=copy_link" target="_blank" rel="noopener">후기<span class="idx">07</span></a>
   <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의<span class="idx">08</span></a>
   <div class="ov-foot">
@@ -421,7 +425,7 @@
     <h2 class="reveal">판매 상품 · 서비스</h2>
   </div>
   <div class="prod-grid">
-    <a class="prod reveal" href="https://oshooni.github.io/ai/1day/" target="_blank" rel="noopener"><span class="ic">🚀</span><h3>AI 원데이 클래스<span class="lk">↗</span></h3><p>하루만에 AI로 내 사이트를 만들고 배포하는 시간</p></a>
+    <a class="prod reveal" href="/ai/1day/"><span class="ic">🚀</span><h3>AI 원데이 클래스<span class="lk">↗</span></h3><p>하루만에 AI로 내 사이트를 만들고 배포하는 시간</p></a>
     <div class="prod reveal"><span class="prod-badge badge-soon">다음 기수 오픈 준비중</span><span class="ic">🎓</span><h3>AI 실무 강의</h3><p>Claude · Claude Code를 활용해 실제 업무와 사업에 바로 쓰는 오프라인 집중 강의</p></div>
     <div class="prod reveal"><span class="prod-badge badge-end">판매 종료</span><span class="ic">🎬</span><h3>AI 콘텐츠 제작 강의</h3><p>인스타그램 카드뉴스 · 콘텐츠 자동화 등 AI 기반 콘텐츠 제작 실습 과정</p></div>
     <div class="prod reveal"><span class="prod-badge badge-end">판매 종료</span><span class="ic">🧩</span><h3>노션 · AI 템플릿</h3><p>업무 생산성을 높이는 노션 템플릿과 AI 활용 템플릿 판매</p></div>
@@ -434,7 +438,7 @@
 
 <footer class="site">
   <div class="cta-line">
-    <a href="https://oshooni.github.io/ai/1day" target="_blank" rel="noopener">알림 신청하기 <span class="ar">↗</span></a>
+    <a href="/ai/1day/">알림 신청하기 <span class="ar">↗</span></a>
   </div>
   <div class="foot-top">
     <div class="foot-brand">

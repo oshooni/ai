@@ -6,11 +6,11 @@
 <title>API 키를 코드에 넣으면 안 되는 이유와 안전하게 쓰는 법 | 노슈니</title>
 <meta name="description" content="API 키를 HTML이나 자바스크립트에 넣으면 누구나 볼 수 있습니다. 왜 위험한지, 사람들이 가장 많이 하는 실수 8가지, 클라우드플레어 워커로 안전하게 감추는 방법까지 정리했습니다.">
 <meta name="author" content="오수인(노슈니)">
-<link rel="canonical" href="https://oshooni.github.io/ai/blog/3">
+<link rel="canonical" href="https://noshooni.com/blog/3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="API 키를 코드에 넣으면 안 되는 이유와 안전하게 쓰는 법">
 <meta property="og:description" content="API 키를 HTML이나 자바스크립트에 넣으면 누구나 볼 수 있습니다. 왜 위험한지, 사람들이 가장 많이 하는 실수 8가지, 클라우드플레어 워커로 안전하게 감추는 방법까지 정리했습니다.">
-<meta property="og:url" content="https://oshooni.github.io/ai/blog/3">
+<meta property="og:url" content="https://noshooni.com/blog/3">
 <meta property="og:site_name" content="노슈니">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"API 키를 코드에 넣으면 안 되는 이유와 안전하게 쓰는 법","description":"API 키를 HTML이나 자바스크립트에 넣으면 누구나 볼 수 있습니다. 왜 위험한지, 사람들이 가장 많이 하는 실수 8가지, 클라우드플레어 워커로 안전하게 감추는 방법까지 정리했습니다.","inLanguage":"ko-KR","datePublished":"2026-08-12","dateModified":"2026-08-12","about":[{"@type":"Thing","name":"API 키 보안"},{"@type":"Thing","name":"환경변수"},{"@type":"Thing","name":"정적 호스팅"}],"author":{"@type":"Person","name":"오수인","alternateName":"노슈니","jobTitle":"AI 강사","description":"비개발자를 대상으로 클로드와 클로드 코드를 가르치는 AI 강사","url":"https://oshooni.github.io/ai/edu"},"publisher":{"@type":"Organization","name":"노슈니","url":"https://oshooni.github.io/ai/edu"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://oshooni.github.io/ai/blog/3"}},{"@type":"HowTo","name":"클라우드플레어 워커로 API 키를 안전하게 감추는 방법","description":"정적 사이트에서 API 키를 노출하지 않고 AI 기능을 붙이기 위해, 클라우드플레어 워커를 중계 서버로 두는 절차","inLanguage":"ko-KR","totalTime":"PT20M","estimatedCost":{"@type":"MonetaryAmount","currency":"KRW","value":"0"},"step":[{"@type":"HowToStep","name":"워커 생성","text":"클라우드플레어 대시보드에서 Workers & Pages를 열고 새 워커를 만듭니다. 무료 요금제로 하루 일정량의 요청을 처리할 수 있습니다."},{"@type":"HowToStep","name":"키를 시크릿으로 저장","text":"워커 설정의 Variables and Secrets에서 ANTHROPIC_API_KEY를 시크릿 타입으로 추가합니다. 시크릿은 암호화되어 저장되며 저장 후에는 값을 다시 볼 수 없습니다. 코드에는 키가 등장하지 않습니다."},{"@type":"HowToStep","name":"중계 코드 작성","text":"워커 코드에서 요청을 받아 env.ANTHROPIC_API_KEY로 API를 호출하고 결과만 돌려줍니다. 요청 출처를 확인해 내 도메인에서 온 요청만 처리하고, 모델과 시스템 프롬프트는 워커 안에 고정하며, 입력 길이에 상한을 둡니다."},{"@type":"HowToStep","name":"프런트엔드 수정","text":"웹페이지의 자바스크립트가 API 주소 대신 내 워커 주소로 요청을 보내도록 고칩니다. 프런트엔드 코드에서 키를 완전히 제거합니다."},{"@type":"HowToStep","name":"노출된 키 폐기","text":"이전에 코드에 넣었던 키가 있다면 콘솔에서 폐기하고 새 키를 발급해 워커 시크릿에만 넣습니다."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"API 키를 코드에 넣으면 왜 위험한가요?","acceptedAnswer":{"@type":"Answer","text":"브라우저에서 동작하는 HTML·CSS·자바스크립트는 전부 방문자의 컴퓨터로 그대로 전송됩니다. 개발자도구를 열거나 페이지 소스를 보면 누구나 읽을 수 있습니다. 코드에 넣은 키는 숨겨진 것이 아니라 화면에 안 보일 뿐이며, 유출되면 내 결제 수단으로 다른 사람이 API를 사용하게 됩니다."}},{"@type":"Question","name":"깃허브 저장소를 비공개로 하면 안전한가요?","acceptedAnswer":{"@type":"Answer","text":"훨씬 낫지만 안전하다고 볼 수는 없습니다. 협업자가 늘어나면 전원이 키를 보게 되고, 나중에 공개로 전환하면 과거 커밋 이력까지 전부 공개됩니다. 무엇보다 깃허브 페이지·넷리파이 같은 정적 호스팅으로 배포하면 저장소가 비공개여도 배포된 파일은 공개되므로 키가 그대로 노출됩니다."}},{"@type":"Question","name":"코드에서 키를 지우고 다시 커밋하면 되지 않나요?","acceptedAnswer":{"@type":"Answer","text":"안 됩니다. 깃은 모든 변경 이력을 보관하므로 과거 커밋을 열면 키가 그대로 남아 있습니다. 이력을 정리하는 도구가 있지만 완전하지 않고, 이미 공개된 순간 누군가 복제해 갔을 수 있습니다. 유출을 확인했다면 이력 정리보다 키 폐기와 재발급이 먼저입니다."}},{"@type":"Question","name":"내 사이트는 아무도 안 보는데 괜찮지 않나요?","acceptedAnswer":{"@type":"Answer","text":"방문자 수와 무관합니다. 공개된 저장소와 웹페이지를 자동으로 훑으며 키 형태의 문자열을 수집하는 프로그램이 상시 돌아갑니다. 사람이 발견하기 전에 기계가 먼저 찾습니다. 배포 직후 몇 분에서 몇 시간 안에 탐지되는 경우도 흔합니다."}},{"@type":"Question","name":"VITE_ 또는 NEXT_PUBLIC_ 접두사를 붙인 환경변수는 안전한가요?","acceptedAnswer":{"@type":"Answer","text":"정반대입니다. 이 접두사들은 해당 값을 브라우저로 내보내겠다는 표시입니다. 빌드 시점에 결과 파일 안에 문자열로 그대로 박히기 때문에, .env 파일에 적어두었더라도 배포된 자바스크립트를 열면 값이 보입니다. 비밀 값에는 절대 이 접두사를 붙이면 안 됩니다."}},{"@type":"Question","name":"클라우드플레어 워커를 쓰면 정확히 뭐가 달라지나요?","acceptedAnswer":{"@type":"Answer","text":"키가 브라우저를 떠나 서버 쪽에 남습니다. 브라우저는 내 워커 주소로만 요청을 보내고, 워커가 자기 안에 보관한 키로 API를 대신 호출한 뒤 결과만 돌려줍니다. 방문자가 개발자도구를 아무리 열어봐도 워커 주소만 보이고 키는 보이지 않습니다."}},{"@type":"Question","name":"워커 주소가 공개되면 남이 마음대로 쓰지 않나요?","acceptedAnswer":{"@type":"Answer","text":"그래서 워커에 제한을 걸어야 합니다. 요청을 보낸 사이트 주소를 확인해 내 도메인에서 온 요청만 처리하고, 사용자가 모델이나 시스템 프롬프트를 마음대로 바꾸지 못하게 워커 안에 고정하고, 입력 길이와 호출 횟수에 상한을 두는 것이 기본입니다. 완벽한 차단은 아니지만 키 자체가 유출되는 것과는 피해 규모가 다릅니다."}},{"@type":"Question","name":"API 키가 유출된 것 같으면 무엇부터 해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"가장 먼저 콘솔에서 해당 키를 폐기합니다. 코드 수정이나 이력 정리보다 폐기가 먼저입니다. 그다음 새 키를 발급해 안전한 위치에 넣고, 사용 내역과 로그에서 낯선 호출이 있었는지 확인합니다."}},{"@type":"Question","name":"깃허브가 알아서 막아주지 않나요?","acceptedAnswer":{"@type":"Answer","text":"깃허브는 공개 저장소를 검사해 알려진 형태의 키를 탐지하고, 앤트로픽을 포함한 제휴 서비스에 통보해 해당 키를 자동으로 비활성화하는 절차를 운영합니다. 도움은 되지만 안전망일 뿐입니다. 탐지되지 않는 형식도 있고, 탐지 전까지의 공백 동안 사용될 수 있으며, 배포된 웹페이지 자체는 이 검사의 대상이 아닙니다."}},{"@type":"Question","name":"공부용이라 금방 지울 건데 그때도 지켜야 하나요?","acceptedAnswer":{"@type":"Answer","text":"네. 유출된 키에는 '연습용'이라는 표시가 없습니다. 오히려 급하게 만든 실습 코드가 그대로 공개 저장소에 남아 사고로 이어지는 경우가 많습니다. 처음부터 환경변수로 시작하면 습관이 잡혀서 나중에 따로 배울 필요가 없습니다."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://oshooni.github.io/ai/edu"},{"@type":"ListItem","position":2,"name":"블로그","item":"https://oshooni.github.io/ai/blog"},{"@type":"ListItem","position":3,"name":"API 키를 코드에 넣으면 안 되는 이유와 안전하게 쓰는 법","item":"https://oshooni.github.io/ai/blog/3"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"API 키를 코드에 넣으면 안 되는 이유와 안전하게 쓰는 법","description":"API 키를 HTML이나 자바스크립트에 넣으면 누구나 볼 수 있습니다. 왜 위험한지, 사람들이 가장 많이 하는 실수 8가지, 클라우드플레어 워커로 안전하게 감추는 방법까지 정리했습니다.","inLanguage":"ko-KR","datePublished":"2026-08-12","dateModified":"2026-08-12","about":[{"@type":"Thing","name":"API 키 보안"},{"@type":"Thing","name":"환경변수"},{"@type":"Thing","name":"정적 호스팅"}],"author":{"@type":"Person","name":"오수인","alternateName":"노슈니","jobTitle":"AI 강사","description":"비개발자를 대상으로 클로드와 클로드 코드를 가르치는 AI 강사","url":"https://noshooni.com/edu"},"publisher":{"@type":"Organization","name":"노슈니","url":"https://noshooni.com/edu"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://noshooni.com/blog/3"}},{"@type":"HowTo","name":"클라우드플레어 워커로 API 키를 안전하게 감추는 방법","description":"정적 사이트에서 API 키를 노출하지 않고 AI 기능을 붙이기 위해, 클라우드플레어 워커를 중계 서버로 두는 절차","inLanguage":"ko-KR","totalTime":"PT20M","estimatedCost":{"@type":"MonetaryAmount","currency":"KRW","value":"0"},"step":[{"@type":"HowToStep","name":"워커 생성","text":"클라우드플레어 대시보드에서 Workers & Pages를 열고 새 워커를 만듭니다. 무료 요금제로 하루 일정량의 요청을 처리할 수 있습니다."},{"@type":"HowToStep","name":"키를 시크릿으로 저장","text":"워커 설정의 Variables and Secrets에서 ANTHROPIC_API_KEY를 시크릿 타입으로 추가합니다. 시크릿은 암호화되어 저장되며 저장 후에는 값을 다시 볼 수 없습니다. 코드에는 키가 등장하지 않습니다."},{"@type":"HowToStep","name":"중계 코드 작성","text":"워커 코드에서 요청을 받아 env.ANTHROPIC_API_KEY로 API를 호출하고 결과만 돌려줍니다. 요청 출처를 확인해 내 도메인에서 온 요청만 처리하고, 모델과 시스템 프롬프트는 워커 안에 고정하며, 입력 길이에 상한을 둡니다."},{"@type":"HowToStep","name":"프런트엔드 수정","text":"웹페이지의 자바스크립트가 API 주소 대신 내 워커 주소로 요청을 보내도록 고칩니다. 프런트엔드 코드에서 키를 완전히 제거합니다."},{"@type":"HowToStep","name":"노출된 키 폐기","text":"이전에 코드에 넣었던 키가 있다면 콘솔에서 폐기하고 새 키를 발급해 워커 시크릿에만 넣습니다."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"API 키를 코드에 넣으면 왜 위험한가요?","acceptedAnswer":{"@type":"Answer","text":"브라우저에서 동작하는 HTML·CSS·자바스크립트는 전부 방문자의 컴퓨터로 그대로 전송됩니다. 개발자도구를 열거나 페이지 소스를 보면 누구나 읽을 수 있습니다. 코드에 넣은 키는 숨겨진 것이 아니라 화면에 안 보일 뿐이며, 유출되면 내 결제 수단으로 다른 사람이 API를 사용하게 됩니다."}},{"@type":"Question","name":"깃허브 저장소를 비공개로 하면 안전한가요?","acceptedAnswer":{"@type":"Answer","text":"훨씬 낫지만 안전하다고 볼 수는 없습니다. 협업자가 늘어나면 전원이 키를 보게 되고, 나중에 공개로 전환하면 과거 커밋 이력까지 전부 공개됩니다. 무엇보다 깃허브 페이지·넷리파이 같은 정적 호스팅으로 배포하면 저장소가 비공개여도 배포된 파일은 공개되므로 키가 그대로 노출됩니다."}},{"@type":"Question","name":"코드에서 키를 지우고 다시 커밋하면 되지 않나요?","acceptedAnswer":{"@type":"Answer","text":"안 됩니다. 깃은 모든 변경 이력을 보관하므로 과거 커밋을 열면 키가 그대로 남아 있습니다. 이력을 정리하는 도구가 있지만 완전하지 않고, 이미 공개된 순간 누군가 복제해 갔을 수 있습니다. 유출을 확인했다면 이력 정리보다 키 폐기와 재발급이 먼저입니다."}},{"@type":"Question","name":"내 사이트는 아무도 안 보는데 괜찮지 않나요?","acceptedAnswer":{"@type":"Answer","text":"방문자 수와 무관합니다. 공개된 저장소와 웹페이지를 자동으로 훑으며 키 형태의 문자열을 수집하는 프로그램이 상시 돌아갑니다. 사람이 발견하기 전에 기계가 먼저 찾습니다. 배포 직후 몇 분에서 몇 시간 안에 탐지되는 경우도 흔합니다."}},{"@type":"Question","name":"VITE_ 또는 NEXT_PUBLIC_ 접두사를 붙인 환경변수는 안전한가요?","acceptedAnswer":{"@type":"Answer","text":"정반대입니다. 이 접두사들은 해당 값을 브라우저로 내보내겠다는 표시입니다. 빌드 시점에 결과 파일 안에 문자열로 그대로 박히기 때문에, .env 파일에 적어두었더라도 배포된 자바스크립트를 열면 값이 보입니다. 비밀 값에는 절대 이 접두사를 붙이면 안 됩니다."}},{"@type":"Question","name":"클라우드플레어 워커를 쓰면 정확히 뭐가 달라지나요?","acceptedAnswer":{"@type":"Answer","text":"키가 브라우저를 떠나 서버 쪽에 남습니다. 브라우저는 내 워커 주소로만 요청을 보내고, 워커가 자기 안에 보관한 키로 API를 대신 호출한 뒤 결과만 돌려줍니다. 방문자가 개발자도구를 아무리 열어봐도 워커 주소만 보이고 키는 보이지 않습니다."}},{"@type":"Question","name":"워커 주소가 공개되면 남이 마음대로 쓰지 않나요?","acceptedAnswer":{"@type":"Answer","text":"그래서 워커에 제한을 걸어야 합니다. 요청을 보낸 사이트 주소를 확인해 내 도메인에서 온 요청만 처리하고, 사용자가 모델이나 시스템 프롬프트를 마음대로 바꾸지 못하게 워커 안에 고정하고, 입력 길이와 호출 횟수에 상한을 두는 것이 기본입니다. 완벽한 차단은 아니지만 키 자체가 유출되는 것과는 피해 규모가 다릅니다."}},{"@type":"Question","name":"API 키가 유출된 것 같으면 무엇부터 해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"가장 먼저 콘솔에서 해당 키를 폐기합니다. 코드 수정이나 이력 정리보다 폐기가 먼저입니다. 그다음 새 키를 발급해 안전한 위치에 넣고, 사용 내역과 로그에서 낯선 호출이 있었는지 확인합니다."}},{"@type":"Question","name":"깃허브가 알아서 막아주지 않나요?","acceptedAnswer":{"@type":"Answer","text":"깃허브는 공개 저장소를 검사해 알려진 형태의 키를 탐지하고, 앤트로픽을 포함한 제휴 서비스에 통보해 해당 키를 자동으로 비활성화하는 절차를 운영합니다. 도움은 되지만 안전망일 뿐입니다. 탐지되지 않는 형식도 있고, 탐지 전까지의 공백 동안 사용될 수 있으며, 배포된 웹페이지 자체는 이 검사의 대상이 아닙니다."}},{"@type":"Question","name":"공부용이라 금방 지울 건데 그때도 지켜야 하나요?","acceptedAnswer":{"@type":"Answer","text":"네. 유출된 키에는 '연습용'이라는 표시가 없습니다. 오히려 급하게 만든 실습 코드가 그대로 공개 저장소에 남아 사고로 이어지는 경우가 많습니다. 처음부터 환경변수로 시작하면 습관이 잡혀서 나중에 따로 배울 필요가 없습니다."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://noshooni.com/edu"},{"@type":"ListItem","position":2,"name":"블로그","item":"https://noshooni.com/blog"},{"@type":"ListItem","position":3,"name":"API 키를 코드에 넣으면 안 되는 이유와 안전하게 쓰는 법","item":"https://noshooni.com/blog/3"}]}]}</script>
 <style>
 :root{
   --ink:#0e0e10; --ink2:#141418; --ink3:#1a1a20;
@@ -250,6 +250,11 @@ footer{background:var(--cream); color:var(--ink); margin-top:76px; padding:52px 
 }
 @media (prefers-reduced-motion:reduce){*{transition:none !important; scroll-behavior:auto !important}}
 </style>
+
+<meta property="og:image" content="https://noshooni.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script defer src="/js/site.js"></script>
 </head>
 <body>
 
@@ -261,14 +266,14 @@ footer{background:var(--cream); color:var(--ink); margin-top:76px; padding:52px 
 
 <nav class="nav">
   <div class="nav-in">
-    <a href="/ai/edu" class="brand">노슈니<i class="flag"></i></a>
-    <div class="menu"><a href="/ai/edu#products">클래스</a><a href="https://oshooni.github.io/ai/1day/">원데이 클래스</a><a href="/ai/edu#products">기업 강의</a><a href="https://shoocreamvillage.notion.site/focusaiedu">강사 소개</a><a href="https://shoocreamvillage.notion.site/3925e8593cb680ca9d18e867baaa1dc9?pvs=105">문의하기</a><a href="/ai/blog" class="on">블로그</a></div>
+    <a href="/" class="brand">노슈니<i class="flag"></i></a>
+    <div class="menu"><a href="/#products">클래스</a><a href="https://noshooni.com/1day/">원데이 클래스</a><a href="/#products">기업 강의</a><a href="https://shoocreamvillage.notion.site/focusaiedu">강사 소개</a><a href="https://shoocreamvillage.notion.site/3925e8593cb680ca9d18e867baaa1dc9?pvs=105">문의하기</a><a href="/blog" class="on">블로그</a></div>
     <button class="burger" id="bg" aria-label="메뉴 열기" aria-expanded="false">☰</button>
   </div>
-  <div class="sheet" id="sh"><a href="/ai/edu#products">클래스</a><a href="https://oshooni.github.io/ai/1day/">원데이 클래스</a><a href="/ai/edu#products">기업 강의</a><a href="https://shoocreamvillage.notion.site/focusaiedu">강사 소개</a><a href="https://shoocreamvillage.notion.site/3925e8593cb680ca9d18e867baaa1dc9?pvs=105">문의하기</a><a href="/ai/blog" class="on">블로그</a></div>
+  <div class="sheet" id="sh"><a href="/#products">클래스</a><a href="https://noshooni.com/1day/">원데이 클래스</a><a href="/#products">기업 강의</a><a href="https://shoocreamvillage.notion.site/focusaiedu">강사 소개</a><a href="https://shoocreamvillage.notion.site/3925e8593cb680ca9d18e867baaa1dc9?pvs=105">문의하기</a><a href="/blog" class="on">블로그</a></div>
 </nav>
 
-<div class="back"><a href="/ai/blog">← 블로그 목록</a></div>
+<div class="back"><a href="/blog">← 블로그 목록</a></div>
 
 <header class="head">
   <span class="chip">AI 실무</span>
@@ -502,7 +507,7 @@ const { reply } = await res.json();</code></pre>
     <p>비개발자를 대상으로 클로드와 클로드 코드를 가르치는 AI 강사입니다. 만드는 것에서 끝내지 않고, 만든 것을 안전하게 세상에 내보내는 데까지 함께합니다.</p>
     <p>기업 대상 사내 AI 교육과 강의 문의도 아래에서 받고 있습니다.</p>
     <div class="btns">
-      <a class="btn p" href="https://oshooni.github.io/ai/1day/">클래스 보기</a>
+      <a class="btn p" href="https://noshooni.com/1day/">클래스 보기</a>
       <a class="btn g" href="https://shoocreamvillage.notion.site/focusaiedu" target="_blank" rel="noopener">강사 소개</a>
       <a class="btn g" href="https://shoocreamvillage.notion.site/3925e8593cb680ca9d18e867baaa1dc9?pvs=105" target="_blank" rel="noopener">기업 강의 문의</a>
     </div>
@@ -516,11 +521,11 @@ const { reply } = await res.json();</code></pre>
     <div class="f-brand">노슈니<i class="flag"></i></div>
     <p class="f-desc">비개발자도 AI로 자기 서비스를 만들어 세상에 내보내게 하는 소수정예 AI 클래스.</p>
     <div class="f-links">
-      <a href="/ai/edu">홈</a>
-      <a href="/ai/edu#products">클래스</a>
-      <a href="https://oshooni.github.io/ai/1day/">원데이 클래스</a>
-      <a href="/ai/edu#products">기업 강의</a>
-      <a href="/ai/blog">블로그</a>
+      <a href="/">홈</a>
+      <a href="/#products">클래스</a>
+      <a href="https://noshooni.com/1day/">원데이 클래스</a>
+      <a href="/#products">기업 강의</a>
+      <a href="/blog">블로그</a>
       <a href="https://www.instagram.com/no_shooni" target="_blank" rel="noopener">인스타그램</a>
       <a href="http://pf.kakao.com/_vCGPX" target="_blank" rel="noopener">카카오톡 채널</a>
     </div>

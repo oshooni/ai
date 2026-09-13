@@ -3,7 +3,7 @@
    ★ GA4 측정 ID를 아래 한 줄만 바꾸면 전체 페이지에 적용됩니다.
       구글 애널리틱스 > 관리 > 데이터 스트림 > 웹 에서 G- 로 시작하는 값
    ============================================================ */
-var GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+var GA_MEASUREMENT_ID = 'G-37CTEBRVP9';
 
 (function () {
   if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID.indexOf('X') !== -1) return; // 아직 미설정

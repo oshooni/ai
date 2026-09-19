@@ -530,5 +530,5 @@
 })();
 </script>
 <script>(function(){var h=document.querySelector("header.site");addEventListener("scroll",function(){h.classList.toggle("scrolled",window.scrollY>40);},{passive:true});})();</script>
-</body>
+<script>(function(){function R(){document.querySelectorAll(".reveal,.rv").forEach(function(e){e.classList.add("visible","in");});}try{if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible","in");io.unobserve(e.target);}});},{threshold:0.08,rootMargin:"0px 0px -5% 0px"});document.querySelectorAll(".reveal,.rv").forEach(function(e){io.observe(e);});setTimeout(R,1200);}else{R();}}catch(e){R();}var mt=document.querySelector(".menu-toggle");if(mt){mt.addEventListener("click",function(){document.body.classList.toggle("menu-open");});}document.querySelectorAll(".overlay a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});})();</script></body>
 </html>

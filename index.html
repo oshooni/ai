@@ -1,534 +1,609 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>노슈니 (NOSHOONI) — AI 교육</title>
-<meta name="description" content="노슈니(NOSHOONI) — 비전공자가 상상만 하던 서비스와 콘텐츠를 Claude·Claude Code·콘텐츠 자동화로 직접 완성하도록 돕는 AI 교육 브랜드. 강사 오수인." />
-<meta property="og:title" content="노슈니 — AI, 이제 직접" />
-<meta property="og:description" content="비전공자를 위한 오프라인 AI 교육. Claude · Claude Code · 콘텐츠 자동화를 소수정예로." />
-<meta property="og:type" content="website" />
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>노슈니의 클로드 코드 복습 노트 | 노슈니 (NOSHOONI)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="노슈니 수업을 마치고 집에서 혼자 이어가는 분들을 위한 클로드 코드 복습 노트. 설치부터 플러그인까지 노슈니가 챙겨드려요.">
+<meta property="og:title" content="노슈니의 클로드 코드 복습 노트 | 노슈니 (NOSHOONI)">
+<meta property="og:description" content="수업 끝나고 집에서 혼자 다시 해볼 때 펼쳐 보는 클로드 코드 노트.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Gaegu:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   :root{
-    --bg:#0e0e10; --bg-2:#141317; --line:rgba(240,236,255,.12); --line-2:rgba(240,236,255,.22);
-    --purple:#7c3aed; --purple-lt:#a78bfa; --cream:#f0ecff; --text:#e9e6f2; --muted:#98929f; --faint:#6c6674;
-    --ease:cubic-bezier(.16,1,.3,1);
+    --base:#0e0e10;--paper:#15151a;--paper-2:#1b1b22;
+    --purple:#7c3aed;--purple-light:#a78bfa;--cream:#f0ecff;
+    --muted:#9b97ad;--soft:#d4cfe4;
+    --line:rgba(167,139,250,.14);--line-2:rgba(167,139,250,.26);--mark:rgba(124,58,237,.42);
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'Pretendard','Outfit',system-ui,sans-serif;
+    --display:'Outfit','Pretendard',sans-serif;
+    --hand:'Gaegu','Pretendard',cursive;
+    --maxw:920px;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg); color:var(--text);
-    font-family:"Inter","Pretendard",sans-serif; font-weight:400;
-    letter-spacing:-.02em; line-height:1.5; -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  a{color:inherit;text-decoration:none;}
-  img{display:block;}
-  ::selection{background:var(--purple);color:#fff;}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+  body{margin:0;background:var(--base);color:var(--cream);font-family:var(--sans);font-size:16.5px;line-height:1.78;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  a{color:var(--purple-light);text-decoration:none}
+  a:hover{text-decoration:underline}
+  ::selection{background:var(--purple);color:#fff}
+  :focus-visible{outline:2px solid var(--purple-light);outline-offset:3px;border-radius:5px}
 
-  .mono{font-family:"Inter",monospace;font-size:13px;text-transform:uppercase;letter-spacing:.14em;font-weight:500;}
+  .mk{background:linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);padding:0 .04em;border-radius:2px}
+  .hand{font-family:var(--hand);font-weight:700;color:var(--purple-light);letter-spacing:0}
 
-  /* custom cursor (fine pointer only) */
-  .cursor{position:fixed;top:0;left:0;width:32px;height:32px;border-radius:50%;
-    background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:9999;
-    transform:translate(-50%,-50%) scale(1);transition:transform .35s var(--ease);will-change:transform;}
-  .cursor.big{transform:translate(-50%,-50%) scale(2.5);}
-  @media (hover:hover) and (pointer:fine){ body.cursor-on{cursor:none;} body.cursor-on a,body.cursor-on button{cursor:none;} }
-  @media (hover:none),(pointer:coarse){ .cursor{display:none;} }
+  .logo{text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.12rem;letter-spacing:-.02em;display:inline-flex;align-items:center;gap:.1em;line-height:1;white-space:nowrap}
+  .logo .f{color:var(--purple-light)}.logo .rest{color:var(--cream)}
+  .logo .ai{color:#fff;background:var(--purple);padding:.1em .32em;border-radius:.28em;font-size:.82em;margin-left:.16em}
 
-  /* header */
-  .topbar{position:fixed;top:0;left:0;right:0;z-index:250;height:42px;display:flex;
-    align-items:center;justify-content:center;gap:8px;background:var(--purple);color:#fff;
-    font-size:13.5px;font-weight:500;letter-spacing:-.01em;padding:0 16px;white-space:nowrap;
-    transition:background .3s var(--ease);}
-  .topbar:hover{background:#8b4ff5;}
-  .topbar b{font-weight:700;}
-  .topbar .arr{display:inline-block;transition:transform .3s var(--ease);}
-  .topbar:hover .arr{transform:translateX(4px);}
-  @media (max-width:600px){ .topbar{font-size:11.5px;gap:6px;} .topbar .tb-x{display:none;} }
-  header.site{position:fixed;top:42px;left:0;right:0;z-index:200;
-    display:flex;align-items:center;justify-content:space-between;padding:24px;}
-  header.site .brand{display:flex;align-items:center;gap:7px;}
-  header.site .brand img{height:22px;}
-  header.site .brand .edu{font-family:"Inter",sans-serif;font-weight:800;font-size:17px;letter-spacing:-.03em;color:var(--cream);}
-  .menu-toggle{display:flex;align-items:center;gap:10px;background:none;border:none;color:var(--cream);
-    font-family:"Inter",monospace;font-size:13px;text-transform:uppercase;letter-spacing:.12em;font-weight:500;}
-  .menu-toggle .plus{display:inline-block;font-size:22px;line-height:1;transition:transform .5s var(--ease);}
-  body.menu-open .menu-toggle .plus{transform:rotate(135deg);}
+  header{position:fixed;inset:0 0 auto;z-index:60;background:rgba(14,14,16,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .bar{max-width:1080px;margin:0 auto;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .bar .mid{font-family:var(--hand);font-size:1.05rem;color:var(--muted);display:none}
+  @media(min-width:780px){.bar .mid{display:block}}
+  .alert-btn{font-family:var(--display);font-weight:700;font-size:.86rem;padding:9px 17px;border-radius:999px;background:var(--purple);color:#fff;display:inline-flex;align-items:center;gap:7px;transition:.2s;box-shadow:0 6px 22px -8px rgba(124,58,237,.9)}
+  .alert-btn:hover{background:#8b4ff0;text-decoration:none;transform:translateY(-1px)}
+  .alert-btn .bell{font-size:.95em}
 
-  /* overlay menu */
-  .topnav{display:none;align-items:center;gap:30px;}
-  .topnav a{font-size:14px;font-weight:500;color:var(--cream);letter-spacing:-.01em;transition:opacity .3s var(--ease);}
-  .topnav a:hover{opacity:.5;}
-  header.site{transition:background .4s var(--ease),backdrop-filter .4s var(--ease);}
-  header.site.scrolled{background:rgba(14,14,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  @media (min-width:981px){ .topnav{display:flex;} .menu-toggle{display:none;} }
-/* 외부 사이트로 나가는 메뉴는 화살표로 예고 */
-.topnav a[target="_blank"]::after{content:"\2197";font-size:.75em;margin-left:3px;opacity:.45;vertical-align:top;}
-.overlay a[target="_blank"] .idx::after{content:" \2197";}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
-  .overlay{position:fixed;inset:0;z-index:150;background:var(--bg);
-    display:flex;flex-direction:column;justify-content:center;padding:0 24px;
-    clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--ease);pointer-events:none;}
-  body.menu-open .overlay{clip-path:inset(0 0 0% 0);pointer-events:auto;}
-  .overlay a{font-family:"Inter","Pretendard",sans-serif;font-weight:700;letter-spacing:-.04em;
-    font-size:clamp(38px,9vw,88px);line-height:1.06;color:var(--cream);padding:6px 0;width:max-content;
-    transition:color .3s var(--ease),transform .5s var(--ease);}
-  .overlay a:hover{color:var(--purple-lt);transform:translateX(18px);}
-  .overlay a .idx{font-family:"Inter",monospace;font-size:13px;letter-spacing:.1em;color:var(--purple-lt);
-    vertical-align:super;margin-left:10px;font-weight:500;}
-  .overlay .ov-foot{position:absolute;bottom:32px;left:24px;right:24px;display:flex;
-    justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--faint);}
+  .hero{position:relative;padding:138px 0 26px;overflow:hidden}
+  .glow{position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.34),transparent 62%);filter:blur(10px);pointer-events:none}
+  .hero .wrap{position:relative}
+  .from{font-family:var(--hand);font-size:1.25rem;color:var(--purple-light);margin:0 0 18px}
+  h1{font-family:var(--display);font-weight:900;letter-spacing:-.035em;line-height:1.08;margin:0 0 24px;font-size:clamp(2.3rem,6.2vw,4rem)}
+  h1 em{font-style:normal;color:var(--purple-light)}
+  .hero-lede{font-size:clamp(1.08rem,2.2vw,1.32rem);color:var(--soft);max-width:39ch;line-height:1.66;margin:0 0 28px}
+  .who{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:8px}
+  .who span{font-size:.85rem;color:var(--soft);border:1px solid var(--line-2);border-radius:999px;padding:6px 14px;background:rgba(124,58,237,.06)}
 
-  /* hero */
-  .hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:150px 24px 60px;}
-  .hero .eyebrow{color:var(--purple-lt);margin-bottom:28px;overflow:hidden;}
-  .hero .eyebrow span{display:inline-block;transform:translateY(120%);transition:transform 1s var(--ease) .1s;}
-  .hero.in .eyebrow span{transform:translateY(0);}
-  .hero-title{font-family:"Inter","Pretendard",sans-serif;font-weight:800;
-    font-size:clamp(56px,12vw,168px);line-height:.92;letter-spacing:-.05em;color:var(--cream);}
-  .hero-title .line{display:block;overflow:hidden;padding-bottom:.04em;}
-  .hero-title .ch{display:inline-block;transform:translateY(105%);transition:transform 1s var(--ease);will-change:transform;}
-  .hero-title .ch.sp{width:.28em;}
-  .hero-title .accent{color:var(--purple-lt);}
-  .hero .sub{font-size:clamp(17px,2.2vw,24px);color:var(--muted);margin-top:32px;font-weight:400;
-    opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease) .7s,transform 1s var(--ease) .7s;}
-  .hero.in .sub{opacity:1;transform:translateY(0);}
-  .hero .scroll-hint{margin-top:56px;color:var(--faint);opacity:0;transition:opacity 1s ease 1.2s;}
-  .hero.in .scroll-hint{opacity:1;}
+  .chapnav{position:sticky;top:60px;z-index:40;background:rgba(14,14,16,.86);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:30px}
+  .chapnav .row{max-width:1080px;margin:0 auto;padding:11px 18px;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none}
+  .chapnav .row::-webkit-scrollbar{display:none}
+  .chapnav a{flex:0 0 auto;font-family:var(--display);font-weight:600;font-size:.85rem;color:var(--muted);padding:7px 14px;border-radius:999px;border:1px solid transparent;white-space:nowrap;transition:.18s}
+  .chapnav a:hover{color:var(--cream);text-decoration:none;background:rgba(124,58,237,.1)}
+  .chapnav a.active{color:#fff;background:var(--purple);border-color:var(--purple)}
 
-  /* marquee */
-  .marquee{overflow:hidden;padding:10px 0 40px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
-  .marquee-track{display:flex;gap:22px;width:max-content;animation:scroll 42s linear infinite;}
-  .marquee:hover .marquee-track{animation-play-state:paused;}
-  @keyframes scroll{to{transform:translateX(-50%);}}
-  .m-card{position:relative;width:clamp(190px,22vw,270px);aspect-ratio:5/7;overflow:hidden;flex:none;
-    background:var(--bg-2);}
-  .m-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);}
-  .m-card:hover img{transform:scale(1.05);}
-  .r-a{border-radius:100px 100px 8px 8px;}
-  .r-b{border-radius:100px 40px 40px 40px;}
-  .r-c{border-radius:40px;}
-  .r-d{border-radius:8px 100px 8px 100px;}
+  main{padding-top:18px}
+  section.blk{padding:46px 0 6px;scroll-margin-top:118px}
+  .step{font-family:var(--hand);font-size:1.1rem;color:var(--purple-light);margin:0 0 4px}
+  .blk h2{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(1.7rem,4vw,2.35rem);margin:0 0 16px;line-height:1.14}
+  .blk p{margin:0 0 16px;color:var(--soft);max-width:64ch}
+  .blk strong{color:var(--cream);font-weight:600}
+  .blk h3{font-family:var(--display);font-weight:700;font-size:1.22rem;letter-spacing:-.01em;color:var(--cream);margin:32px 0 12px}
+  .blk ul{margin:0 0 18px;padding:0;list-style:none;max-width:64ch}
+  .blk ul li{position:relative;padding-left:24px;margin-bottom:10px;color:var(--soft)}
+  .blk ul li::before{content:"";position:absolute;left:3px;top:.72em;width:7px;height:7px;border-radius:2px;background:var(--purple-light);transform:rotate(45deg)}
 
-  /* intro statement */
-  .intro{max-width:1100px;margin:0 auto;padding:90px 24px 100px;}
-  .intro .k{font-size:clamp(26px,4.4vw,58px);font-weight:600;line-height:1.28;letter-spacing:-.035em;color:var(--cream);}
-  .intro .k .g{color:var(--faint);}
-  .intro .k .p{color:var(--purple-lt);}
-  .intro .meta{margin-top:40px;display:flex;gap:28px;flex-wrap:wrap;color:var(--faint);}
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
-  .reveal.visible{opacity:1;transform:none;}
+  code.in{font-family:var(--mono);font-size:.85em;background:rgba(124,58,237,.16);color:var(--cream);padding:.12em .42em;border-radius:6px}
+  pre.code{font-family:var(--mono);font-size:.83rem;line-height:1.85;background:#0c0c10;border:1px solid var(--line);border-radius:13px;padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:#dcd7ee}
+  pre.code .pr{color:var(--purple-light)}
+  pre.code .cm{color:var(--muted)}
+  pre.code .ok{color:#5ee08a}
 
-  /* project grid */
-  .work{max-width:1280px;margin:0 auto;padding:20px 24px 80px;}
-  .work-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:44px;flex-wrap:wrap;gap:12px;}
-  .work-head h2{font-size:clamp(30px,5vw,64px);font-weight:800;letter-spacing:-.05em;line-height:.95;color:var(--cream);}
-  .work-head .count{color:var(--purple-lt);}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:56px 40px;}
-  .item{cursor:pointer;}
-  .item .frame{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-2);border-radius:6px;}
-  .item .frame img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);}
-  .item .frame.contain{background:#0e0e10;}
-  .item .frame.contain img{object-fit:contain;}
-  .item:hover .frame img{transform:scale(1.05);}
-  .item .ovl{position:absolute;inset:0;background:rgba(14,14,16,.28);opacity:0;transition:opacity .5s var(--ease);}
-  .item:hover .ovl{opacity:1;}
-  .item .arrow{position:absolute;top:16px;right:16px;width:46px;height:46px;border-radius:50%;
-    background:var(--cream);color:#0e0e10;display:flex;align-items:center;justify-content:center;
-    opacity:0;transform:translate(6px,-6px) scale(.8);transition:all .5s var(--ease);}
-  .item:hover .arrow{opacity:1;transform:translate(0,0) scale(1);}
-  .item .arrow svg{width:20px;height:20px;}
-  .item .info{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
-    border-top:1px solid var(--line);padding-top:16px;margin-top:18px;}
-  .item .info .t{font-size:clamp(17px,1.7vw,22px);font-weight:600;letter-spacing:-.03em;color:var(--cream);line-height:1.25;}
-  .item .info .cat{color:var(--muted);margin-top:6px;}
-  .item .info .yr{color:var(--faint);white-space:nowrap;}
+  /* copyable command rows */
+  .cmd-block{display:flex;flex-direction:column;gap:9px;margin:0 0 18px}
+  .cmd-note{font-family:var(--sans);font-size:.88rem;color:var(--muted);margin:2px 0 -3px}
+  .cmd{position:relative;display:flex;gap:10px;align-items:flex-start;background:#0c0c10;border:1px solid var(--line);border-radius:11px;padding:11px 11px 11px 32px;margin:0 0 14px}
+  .cmd-block .cmd{margin:0}
+  .cmd::before{content:"$";position:absolute;left:13px;top:11px;color:var(--purple-light);font-family:var(--mono);font-size:.84rem}
+  .cmd.ps::before{content:">"}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:.84rem;color:#dcd7ee;background:none;border:none;padding:0;white-space:pre-wrap;word-break:break-all;line-height:1.55}
+  .cmd .copy{flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:.7rem;padding:5px 11px;border-radius:8px;border:1px solid var(--line-2);background:rgba(124,58,237,.16);color:var(--cream);cursor:pointer;transition:.15s;white-space:nowrap}
+  .cmd .copy:hover{background:var(--purple);color:#fff;border-color:var(--purple)}
+  .cmd .copy.done{background:#1f7a46;border-color:#1f7a46;color:#fff}
 
-  /* products & services */
-  .products{max-width:1280px;margin:0 auto;padding:40px 24px 40px;}
-  .sec-head{margin-bottom:44px;}
-  .sec-head .eb{color:var(--purple-lt);margin-bottom:16px;}
-  .sec-head h2{font-size:clamp(30px,5vw,64px);font-weight:800;letter-spacing:-.05em;line-height:.95;color:var(--cream);}
-  .sec-head .note{margin-top:18px;font-size:15px;line-height:1.7;color:var(--muted);}
-  .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
-  .prod{display:block;position:relative;background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:34px 32px;}
-  .prod .ic{font-size:26px;display:block;margin-bottom:22px;}
-  .prod h3{font-size:clamp(18px,1.9vw,22px);font-weight:600;letter-spacing:-.03em;color:var(--cream);margin-bottom:12px;}
-  .prod p{font-size:15px;line-height:1.7;color:var(--muted);font-weight:400;}
+  /* folder tree illustration */
+  .tree{font-family:var(--mono);font-size:.84rem;line-height:1.95;background:#0c0c10;border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:0 0 16px;color:#cdc8de;white-space:pre;overflow-x:auto}
+  .tree .root{color:var(--cream);font-weight:700}
+  .tree .hl{color:var(--purple-light)}
 
-  /* kakao channel notice */
-  .channel-note{max-width:1120px;margin:60px auto 20px;padding:0 24px;}
-  .cn-box{border:1px solid var(--line);border-radius:24px;padding:64px 40px 56px;text-align:center;
-    background:radial-gradient(120% 120% at 50% 0,rgba(124,58,237,.1),transparent 60%);}
-  .cn-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.16);
-    border:1px solid var(--line-2);color:var(--purple-lt);font-size:14px;font-weight:500;
-    padding:8px 18px;border-radius:999px;margin-bottom:30px;}
-  .cn-box h3{font-size:clamp(24px,4vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1.4;color:var(--cream);}
-  .cn-box h3 b{color:var(--purple-lt);font-weight:800;}
-  .cn-box .cn-sub{color:var(--muted);font-size:clamp(15px,1.7vw,18px);margin-top:22px;line-height:1.85;}
-  .cn-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:44px;}
-  .cn-btns a{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;
-    padding:15px 30px;border-radius:999px;letter-spacing:-.02em;transition:transform .4s var(--ease),background .3s var(--ease),border-color .3s var(--ease);}
-  .cn-btns .primary{background:var(--purple);color:#fff;box-shadow:0 8px 30px rgba(124,58,237,.35);}
-  .cn-btns .primary:hover{background:#8b4ff5;transform:translateY(-3px);}
-  .cn-btns .ghost{background:var(--bg-2);color:var(--cream);border:1px solid var(--line-2);}
-  .cn-btns .ghost:hover{border-color:var(--purple-lt);transform:translateY(-3px);}
-  .cn-note{text-align:center;color:var(--faint);font-size:13px;margin-top:22px;}
+  .talk{position:relative;border:1px solid var(--line);background:linear-gradient(180deg,rgba(124,58,237,.08),rgba(124,58,237,.02));border-radius:16px;padding:20px 22px 20px 56px;margin:6px 0 22px;color:#e6e2f4;max-width:66ch}
+  .talk::before{content:"🙂";position:absolute;left:18px;top:18px;font-size:1.2rem}
+  .talk.tip::before{content:"💜"}
+  .talk.warn::before{content:"⚠️"}
+  .talk b{color:var(--purple-light)}
+  .talk.warn b{color:#febc2e}
 
-  @media (max-width:680px){
-    .prod-grid{grid-template-columns:1fr;}
-    .prod{padding:28px 24px;}
-    .cn-box{padding:48px 24px 44px;}
-  }
+  .checklist{counter-reset:ck;margin:6px 0 8px}
+  .ck{position:relative;border:1px solid var(--line);border-radius:16px;padding:22px 24px 22px 64px;margin-bottom:16px;background:var(--paper)}
+  .ck::before{counter-increment:ck;content:counter(ck);position:absolute;left:20px;top:22px;width:30px;height:30px;border-radius:9px;background:var(--purple);color:#fff;font-family:var(--display);font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -6px rgba(124,58,237,.8)}
+  .ck h3{margin:0 0 8px;font-family:var(--display);font-weight:800;font-size:1.18rem;color:var(--cream)}
+  .ck p{margin:0 0 12px;color:var(--soft)}
+  .ck p:last-child{margin-bottom:0}
 
-  /* footer (high-contrast light) */
-  footer.site{background:var(--cream);color:#141317;margin-top:60px;}
-  .foot-top{max-width:1280px;margin:0 auto;padding:80px 24px 56px;
-    display:grid;grid-template-columns:1.4fr 1.6fr 1fr 1fr;gap:40px;}
-  .foot-brand .wm{font-family:"Inter",sans-serif;font-weight:800;font-size:26px;letter-spacing:-.04em;color:#141317;}
-  .foot-brand .wm b{color:var(--purple);}
-  .foot-brand .biz{margin-top:22px;font-size:13px;line-height:1.9;color:#4a4652;}
-  .foot-brand .biz span{color:#141317;font-weight:600;}
-  .foot-col h4{font-family:"Inter",monospace;font-size:12px;text-transform:uppercase;letter-spacing:.12em;
-    color:#8a8593;font-weight:600;margin-bottom:18px;}
-  .foot-col p{font-size:15px;line-height:1.7;color:#3b3742;}
-  .foot-col a{display:block;font-size:16px;color:#141317;padding:5px 0;transition:color .3s var(--ease),transform .3s var(--ease);}
-  .foot-col a:hover{color:var(--purple);transform:translateX(5px);}
-  .foot-bar{max-width:1280px;margin:0 auto;padding:22px 24px 40px;border-top:1px solid rgba(20,19,26,.14);
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-  .foot-bar .mono{color:#6c6674;}
-  .cta-line{max-width:1280px;margin:0 auto;padding:0 24px;}
-  .cta-line a{display:block;padding:56px 0 44px;font-family:"Inter","Pretendard",sans-serif;font-weight:800;
-    letter-spacing:-.05em;line-height:.95;font-size:clamp(40px,8vw,120px);color:#141317;
-    transition:color .4s var(--ease);}
-  .cta-line a:hover{color:var(--purple);}
-  .cta-line a .ar{display:inline-block;transition:transform .5s var(--ease);}
-  .cta-line a:hover .ar{transform:translate(14px,-14px);}
+  .os-toggle{display:flex;gap:8px;margin:10px 0 16px;flex-wrap:wrap}
+  .os-toggle button{font-family:var(--display);font-weight:700;font-size:.9rem;padding:9px 18px;border-radius:11px;border:1px solid var(--line-2);background:transparent;color:var(--muted);cursor:pointer;transition:.18s;display:flex;align-items:center;gap:7px}
+  .os-toggle button[aria-selected="true"]{background:var(--purple);border-color:var(--purple);color:#fff}
+  .ospane{display:none}
+  .ospane.on{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  ol.steps{counter-reset:st;list-style:none;margin:0 0 14px;padding:0;max-width:64ch}
+  ol.steps>li{position:relative;padding:0 0 16px 40px;margin:0}
+  ol.steps>li::before{counter-increment:st;content:counter(st);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--purple);color:var(--purple-light);font-family:var(--mono);font-size:.82rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+  ol.steps>li:not(:last-child)::after{content:"";position:absolute;left:13px;top:28px;bottom:0;width:1.5px;background:var(--line-2)}
+  ol.steps>li b{color:var(--cream)}
 
-  @media (max-width:900px){
-    .foot-top{grid-template-columns:1fr 1fr;gap:40px 24px;}
-    .foot-brand{grid-column:1/-1;}
-  }
-  @media (max-width:680px){
-    .grid{grid-template-columns:1fr;gap:44px;}
-    .foot-top{grid-template-columns:1fr;}
-    header.site{padding:18px;}
-    .intro{padding:64px 22px 72px;}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important;}
-    .hero-title .ch,.hero .eyebrow span{transform:none!important;}
-    .hero .sub{opacity:1!important;transform:none!important;}
-    .reveal{opacity:1!important;transform:none!important;}
-  }
+  .tbl{width:100%;overflow-x:auto;margin:0 0 18px}
+  table{width:100%;border-collapse:collapse;min-width:440px;font-size:.93rem}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--display);font-weight:700;color:var(--cream);font-size:.82rem;background:rgba(255,255,255,.02)}
+  td{color:var(--soft)}td strong{color:var(--cream)}
+  td code,.tbl code{font-family:var(--mono);font-size:.85em;background:rgba(124,58,237,.16);color:var(--cream);padding:.1em .4em;border-radius:6px;white-space:nowrap}
+
+  /* 4-way comparison (챗·코워크·코드·터미널) */
+  table.cmp td:first-child{border-left:3px solid transparent}
+  table.cmp .r-chat td:first-child{border-left-color:#60a5fa}
+  table.cmp .r-cowork td:first-child{border-left-color:#5ee08a}
+  table.cmp .r-code td:first-child{border-left-color:#a78bfa}
+  table.cmp .r-term td:first-child{border-left-color:#febc2e}
+  table.cmp .ci{margin-right:5px;font-size:1.05em}
+  table.cmp .csub{font-size:.76rem;color:var(--muted)}
+  table.cmp .cex{display:block;margin-top:5px;color:var(--muted);font-size:.85rem}
+  .when{display:flex;flex-direction:column;gap:10px;margin:6px 0 8px}
+  .wrow{display:flex;gap:13px;align-items:flex-start;border:1px solid var(--line);border-left:4px solid var(--a,#7c3aed);border-radius:12px;padding:13px 16px;background:var(--paper)}
+  .wrow .wic{font-size:1.25rem;line-height:1.35;flex:0 0 auto}
+  .wrow b{font-family:var(--display);font-weight:800;color:var(--cream);display:block;font-size:.98rem;margin-bottom:1px}
+  .wrow span{color:var(--soft);font-size:.92rem}
+  .wrow code{font-family:var(--mono);font-size:.85em;background:rgba(124,58,237,.16);color:var(--cream);padding:.08em .38em;border-radius:5px}
+
+  .gb{display:grid;gap:14px;margin:6px 0 18px}
+  @media(min-width:600px){.gb{grid-template-columns:1fr 1fr}}
+  .gb .c{border:1px solid var(--line);border-radius:13px;padding:14px 16px;background:rgba(255,255,255,.012)}
+  .gb .c .t{font-family:var(--display);font-weight:700;font-size:.82rem;margin-bottom:7px}
+  .gb .x .t{color:#ff8079}.gb .o .t{color:#5ee08a}
+  .gb .c .ex{font-family:var(--mono);font-size:.84rem;color:var(--soft);margin:0;line-height:1.6}
+
+  .ten{display:grid;gap:13px;margin:8px 0 16px}
+  @media(min-width:640px){.ten{grid-template-columns:1fr 1fr}}
+  .item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--paper);transition:.18s}
+  .item:hover{border-color:var(--line-2);transform:translateY(-2px)}
+  .item.star{border-color:var(--line-2);background:linear-gradient(180deg,rgba(124,58,237,.12),rgba(124,58,237,.02))}
+  .item .head{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+  .item .ic{font-size:1.15rem}
+  .item .nm{font-family:var(--display);font-weight:800;font-size:1.0rem;color:var(--cream)}
+  .item .en{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .item .badge{font-family:var(--display);font-size:.64rem;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;margin-left:auto;background:var(--purple);color:#fff}
+  .item p{margin:0;font-size:.9rem;color:var(--soft);line-height:1.6}
+  .item .cmd{margin:12px 0 0;padding:9px 9px 9px 27px;border-radius:9px}
+  .item .cmd::before{left:11px;top:9px;font-size:.78rem}
+  .item .cmd code{font-size:.77rem;line-height:1.5}
+  .item .cmd .copy{font-size:.65rem;padding:4px 9px}
+
+  .closing{margin-top:60px;border-top:1px solid var(--line);background:radial-gradient(70% 130% at 50% 0%,rgba(124,58,237,.18),transparent 70%)}
+  .closing .in{max-width:var(--maxw);margin:0 auto;padding:64px 24px 18px;text-align:center}
+  .closing .from{justify-content:center}
+  .closing h2{font-family:var(--display);font-weight:900;font-size:clamp(1.9rem,4.6vw,2.8rem);letter-spacing:-.035em;line-height:1.1;margin:0 0 16px}
+  .closing p{color:var(--soft);max-width:44ch;margin:0 auto 28px}
+  .alert-btn.big{font-size:1.02rem;padding:15px 28px;border-radius:14px}
+  footer{border-top:1px solid var(--line);padding:24px}
+  footer .ft{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  footer small{color:var(--muted);font-size:.78rem;max-width:62ch}
 </style>
-
-<link rel="canonical" href="https://noshooni.com/">
-<meta property="og:image" content="https://noshooni.com/assets/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://noshooni.com/">
-<meta name="twitter:card" content="summary_large_image">
-<script defer src="/js/site.js"></script>
 </head>
 <body>
 
-<a class="topbar" href="https://www.instagram.com/shooni_ai/" target="_blank" rel="noopener">관련 소식을 가장 빠르게<span class="tb-x"> 받는 곳 · 노슈니</span> 인스타그램 <b>@shooni_ai</b> <span class="arr">→</span></a>
-
-<div class="cursor" aria-hidden="true"></div>
-
-<header class="site">
-  <a href="#top" class="brand" aria-label="NOSHOONI"><img fetchpriority="high" decoding="async" width="427" height="89" src="/images/noshooni-5f95636263.webp" alt="NOSHOONI" style="height:24px" /></a>
-  <nav class="topnav" aria-label="주요 메뉴">
-    <a href="/about">강사 소개</a>
-    <a href="https://shoocreamvillage.notion.site/1675e8593cb68236869b81175250da57?pvs=105" target="_blank" rel="noopener">알림 신청</a>
-    <a href="/1day/">원데이 클래스</a>
-    <a href="/class/">정규 강의</a>
-    <a href="#products">강의·컨설팅</a>
-    <a href="/blog/">블로그</a>
-    <a href="https://shoocreamvillage.notion.site/aireview?v=3b85e8593cb680afabf7000c0745be0d&source=copy_link" target="_blank" rel="noopener">후기</a>
-    <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의</a>
-  </nav>
-  <button class="menu-toggle" aria-label="메뉴 열기">MENU<span class="plus">+</span></button>
+<header>
+  <div class="bar">
+    <a class="logo" href="/" aria-label="NOSHOONI"><img src="/images/noshooni-5f95636263.webp" alt="NOSHOONI" width="427" height="89" style="height:22px;width:auto;display:block"></a>
+    <span class="mid">노슈니의 클로드 코드 복습 노트</span>
+  </div>
 </header>
 
-<nav class="overlay" aria-label="주요 메뉴">
-      <a href="/about">강사 소개<span class="idx">01</span></a>
-  <a href="https://shoocreamvillage.notion.site/1675e8593cb68236869b81175250da57?pvs=105" target="_blank" rel="noopener">알림 신청<span class="idx">02</span></a>
-  <a href="/1day/">원데이 클래스<span class="idx">03</span></a>
-  <a href="/class/">정규 강의<span class="idx">04</span></a>
-  <a href="#products">강의·컨설팅<span class="idx">05</span></a>
-  <a href="/blog/">블로그<span class="idx">06</span></a>
-  <a href="https://shoocreamvillage.notion.site/aireview?v=3b85e8593cb680afabf7000c0745be0d&source=copy_link" target="_blank" rel="noopener">후기<span class="idx">07</span></a>
-  <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의<span class="idx">08</span></a>
-  <div class="ov-foot">
-    <span class="mono">NOSHOONI</span>
-    <span class="mono">Seoul · Sinsa</span>
+<!-- HERO -->
+<div class="hero">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="from">수업 끝나고, 집에서 혼자 할 때 펼쳐 보는 노트 ✍️</p>
+    <h1>이제 혼자서도,<br><em>충분히 할 수 있어요</em></h1>
+    <p class="hero-lede">수업에서 같이 해본 클로드 코드, 집에 가면 "어 이게 뭐였더라?" 싶잖아요. 그래서 만들었어요. 설치부터 편하게 쓰는 법까지, 막힐 때 펼쳐 보세요.</p>
+    <div class="who">
+      <span>수업은 들었는데 혼자 하려니 막막한 분</span>
+      <span>집 컴퓨터에 다시 깔아야 하는 분</span>
+      <span>배운 걸 진짜 내 것으로 만들고 싶은 분</span>
+    </div>
+  </div>
+</div>
+
+<nav class="chapnav" aria-label="목차">
+  <div class="row">
+    <a href="#intro">들어가며</a>
+    <a href="#what">뭐였더라</a>
+    <a href="#compare">챗·코워크·코드</a>
+    <a href="#make">뭘 만드냐면</a>
+    <a href="#ready">내 컴퓨터에 갖추기</a>
+    <a href="#first">처음 켰을 때</a>
+    <a href="#terminal">터미널 기초</a>
+    <a href="#memory">규칙 기억(CLAUDE.md)</a>
+    <a href="#habits">습관 · 명령어</a>
+    <a href="#power">플러그인 · 스킬</a>
+    <a href="#railway">레일웨이</a>
   </div>
 </nav>
 
-<div id="top"></div>
+<main class="wrap">
 
-<section class="hero" id="hero">
-  <div class="eyebrow mono"><span>NOSHOONI · AI EDUCATION</span></div>
-  <h1 class="hero-title">
-    <span class="line" data-text="AI, 이제"></span>
-    <span class="line accent" data-text="직접."></span>
-  </h1>
-  <p class="sub">Claude · Claude Code · 콘텐츠 자동화를 소수정예로</p>
-  <div class="scroll-hint mono">Scroll ↓</div>
-</section>
+  <!-- INTRO -->
+  <section class="blk" id="intro">
+    <p class="step">먼저, 한마디만</p>
+    <h2>집에 가면 꼭 막히더라고요</h2>
+    <p>안녕하세요, 노슈니예요. 이 노트는 <strong>수업을 마치고 집에 가서 혼자 다시 해볼 때</strong> 옆에 두고 보는 복습 노트예요. 수업에선 같이 하니까 술술 됐는데, 막상 혼자 앉으면 "어 이거 뭐였지?" 싶죠. 그 순간을 위해 만들었어요.</p>
+    <p>이미 수업에서 한 번 해본 것들이라 낯설지 않을 거예요. 처음부터 다 읽을 필요 없이, <span class="mk">막히는 부분만 펼쳐서</span> 그대로 따라 하면 돼요.</p>
+    <div class="talk tip"><b>이 노트 쓰는 법.</b> 위에서부터 차례대로 가도 좋고, 필요한 데만 콕 집어 봐도 좋아요. 집 컴퓨터에 처음 깔 거라면 <a href="#ready">내 컴퓨터에 갖추기</a>부터, 다 깔려 있으면 <a href="#power">플러그인 · 스킬</a>로 바로 가셔도 돼요.</div>
+  </section>
 
-<section class="marquee" aria-hidden="true">
-  <div class="marquee-track" id="track">
-    <div class="m-card r-a"><img fetchpriority="high" decoding="async" width="780" height="468" src="/images/img-6953aff34c.webp" style="object-position:68% 40%" alt="" /></div>
-    <div class="m-card r-c"><img loading="lazy" decoding="async" width="760" height="944" src="/images/img-af3162c7a2.webp" style="object-position:56% 30%" alt="" /></div>
-    <div class="m-card r-b"><img loading="lazy" decoding="async" width="920" height="517" src="/images/img-a991f5ad01.webp" style="object-position:50% 58%" alt="" /></div>
-    <div class="m-card r-d"><img loading="lazy" decoding="async" width="780" height="468" src="/images/img-e2b7965155.webp" style="object-position:32% 42%" alt="" /></div>
-    <div class="m-card r-c"><img loading="lazy" decoding="async" width="780" height="468" src="/images/img-40c83ef4fe.webp" style="object-position:42% 30%" alt="" /></div>
-    <div class="m-card r-a"><img loading="lazy" decoding="async" width="780" height="468" src="/images/img-f94e5ec5db.webp" style="object-position:50% 38%" alt="" /></div>
-    <div class="m-card r-b"><img loading="lazy" decoding="async" width="780" height="468" src="/images/img-646955da0f.webp" style="object-position:50% 30%" alt="" /></div>
-    <div class="m-card r-c"><img loading="lazy" decoding="async" width="760" height="780" src="/images/img-d067e3f770.webp" style="object-position:46% 34%" alt="" /></div>
-  </div>
-</section>
+  <!-- WHAT -->
+  <section class="blk" id="what">
+    <p class="step">하나, 다시 떠올리면</p>
+    <h2>클로드 코드, 뭐였더라</h2>
+    <p>우리가 평소에 쓰는 <strong>claude.ai</strong>는 대화창이에요. 질문하면 답을 보여주고, 파일은 하나씩 올려야 하죠. 클로드 코드는 거기서 한 발 더 들어가요. <span class="mk">내 컴퓨터 폴더 안으로 직접 들어와서</span> 파일을 읽고, 정리하고, 결과물까지 만들어 둡니다.</p>
+    <p>수업에서 말씀드린 비유 기억나시죠? claude.ai가 <strong>카톡으로 물어보는 사이</strong>라면, 클로드 코드는 <strong>우리 집에 와서 같이 책상 정리해주는 사람</strong>이에요.</p>
+    <div class="tbl"><table>
+      <tr><th></th><th>claude.ai (대화창)</th><th>클로드 코드</th></tr>
+      <tr><td><strong>파일</strong></td><td>하나씩 올려야 함</td><td>폴더째로 알아서 읽음</td></tr>
+      <tr><td><strong>결과물</strong></td><td>복사해서 옮기기</td><td>파일로 딱 저장해 둠</td></tr>
+      <tr><td><strong>반복 일</strong></td><td>매번 다시 시켜야</td><td>한 번 말하면 알아서</td></tr>
+    </table></div>
+  </section>
 
-<section class="intro">
-  <p class="k reveal">
-    <span class="p">노슈니</span>는 AI를 처음 배우는 비전공자가
-    <span class="g">머릿속으로 상상만 하던 서비스와 콘텐츠를 직접 완성해갈 수 있도록</span>
-    Claude · Claude Code · 콘텐츠 자동화를
-    <span class="p">소수정예 집중 과정</span>으로 가르치는 AI 교육 브랜드입니다.
-  </p>
-  <div class="meta reveal">
-    <span class="mono">Seoul · Sinsa-dong</span>
-    <span class="mono">Class · Content · Consulting</span>
-    <span class="mono">Est. 2024</span>
-  </div>
-</section>
+  <!-- COMPARE -->
+  <section class="blk" id="compare">
+    <p class="step">둘, 헷갈리지 않게</p>
+    <h2>챗 · 코워크 · 코드 · 터미널, 뭐가 달라요?</h2>
+    <p>이름이 다 '클로드'로 비슷해서 왕초보일 때 제일 헷갈리는 네 가지예요. 역할이 완전히 다르니, 하나씩 보면 쉬워요.</p>
+    <div class="tbl"><table class="cmp">
+      <tr><th>구분</th><th>한마디로</th><th>이럴 때 쓰면 좋아요 (예시)</th></tr>
+      <tr class="r-chat"><td><span class="ci">💬</span><strong>클로드 챗</strong><br><span class="csub">claude.ai · 웹·앱</span></td><td>똑똑한 대화 상대</td><td>가볍게 묻고, 글·아이디어 다듬기<span class="cex">예: "이 캡션 더 친근하게 고쳐줘"</span></td></tr>
+      <tr class="r-cowork"><td><span class="ci">🤝</span><strong>클로드 코워크</strong><br><span class="csub">Cowork · 데스크톱 앱</span></td><td>일을 통째로 맡기는 비서</td><td>여러 단계가 필요한 일을 알아서<span class="cex">예: "이 자료들 조사해서 보고서로 정리해줘"</span></td></tr>
+      <tr class="r-code"><td><span class="ci">💻</span><strong>클로드 코드</strong><br><span class="csub">Code · 터미널/앱에서 실행</span></td><td>내 컴퓨터에 와서 일하는 동료</td><td>내 폴더 파일을 직접 다루고 도구·자동화 만들기<span class="cex">예: 회의록 정리, 슬랙봇 만들기</span></td></tr>
+      <tr class="r-term"><td><span class="ci">⌨️</span><strong>터미널</strong><br><span class="csub">앱이 아니라 '명령어 창'</span></td><td>클로드 코드를 켜는 '무대'(장소)</td><td>명령어를 입력하는 까만 창<span class="cex">예: <code>claude</code> 쳐서 코드를 켜요</span></td></tr>
+    </table></div>
+    <div class="talk warn"><b>여기만 안 헷갈리면 돼요.</b> <strong>'클로드 코드 = 터미널'이 아니에요.</strong> 터미널은 명령어를 입력하는 '창'이고, 클로드 코드는 그 창에서 <code class="in">claude</code>라고 쳐서 켜는 '도구'예요.</div>
 
-<section class="work" id="work">
-  <div class="work-head">
-    <h2 class="reveal">Selected<br/>Works</h2>
-    <span class="count mono reveal">12 Projects</span>
-  </div>
-  <div class="grid">
+    <h3>언제 뭘 쓰면 좋을까요?</h3>
+    <div class="when">
+      <div class="wrow" style="--a:#60a5fa"><span class="wic">💬</span><div><b>클로드 챗</b><span>가볍게 묻거나 글·아이디어를 다듬고 싶을 때</span></div></div>
+      <div class="wrow" style="--a:#5ee08a"><span class="wic">🤝</span><div><b>클로드 코워크</b><span>리서치·분석·정리처럼 여러 단계 일을 통째로 맡기고 싶을 때</span></div></div>
+      <div class="wrow" style="--a:#a78bfa"><span class="wic">💻</span><div><b>클로드 코드</b><span>내 컴퓨터 파일을 직접 만지고, 나만의 도구·자동화를 만들고 싶을 때</span></div></div>
+      <div class="wrow" style="--a:#febc2e"><span class="wic">⌨️</span><div><b>터미널</b><span>도구가 아니라, 클로드 코드를 켜는 곳 — <code>claude</code>를 입력하는 창이에요</span></div></div>
+    </div>
+  </section>
 
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="900" height="506" src="/images/img-8f07592f21.webp" style="object-position:50% 42%" alt="앤트로픽(클로드) 공동창업자 벤자민 한국 초청 강연 운영 스탭진" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
+  <section class="blk" id="make">
+    <p class="step">셋, 집에서도 이런 걸</p>
+    <h2>혼자서도 이런 걸 만들 수 있어요</h2>
+    <p>수업에서 하나 완성해봤으니, 이제 일상 속 귀찮은 일을 하나씩 시켜보세요. 컴퓨터로 하는 일은 거의 다 됩니다.</p>
+    <ul>
+      <li><strong>콘텐츠·SNS</strong> — 카드뉴스 자동으로 만들기, 인스타 글·블로그 초안 쓰기</li>
+      <li><strong>문서 정리</strong> — 흩어진 회의록 수십 개에서 결정사항만 쏙 뽑아 한 파일로</li>
+      <li><strong>자료 분석</strong> — 긴 PDF·엑셀 한 번에 요약 (엑셀 함수 몰라도 돼요)</li>
+      <li><strong>나만의 작은 도구</strong> — 자료 모아두는 웹페이지, 슬랙봇, 반복 작업 자동화</li>
+    </ul>
+    <div class="talk"><b>"또 뭘 만들지 막막해요."</b> 그럴 땐 거창하게 생각하지 마세요. <strong>이번 주에 제일 귀찮았던 일</strong> 하나를 떠올려서 "이거 좀 줄여줘"라고 시켜보는 것부터예요. 수업에서 했던 그 방식 그대로요.</div>
+  </section>
+
+  <!-- READY -->
+  <section class="blk" id="ready">
+    <p class="step">넷, 내 컴퓨터에 갖추기</p>
+    <h2>집에서 혼자 하려면, 두 가지부터</h2>
+    <p>수업에선 다 세팅돼 있었지만, 집 컴퓨터에선 이 두 가지를 직접 갖춰둬야 해요. 한 번만 해두면 그다음부턴 그냥 켜기만 하면 됩니다.</p>
+
+    <div class="checklist">
+      <div class="ck">
+        <h3>유료 플랜 하나 준비하기</h3>
+        <p>클로드 코드는 <strong>무료 계정으로는 켜지지 않아요.</strong> 아래 둘 중 하나의 유료 구독이 있어야 해요.</p>
+        <div class="tbl"><table>
+          <tr><th>플랜</th><th>월 요금</th><th>이런 분께</th></tr>
+          <tr><td><strong>Pro</strong></td><td>약 $20</td><td>가볍게, 가끔 쓰는 정도</td></tr>
+          <tr><td><strong>Max</strong></td><td>약 $100~</td><td>매일 여유 있게 (한도 넉넉)</td></tr>
+        </table></div>
+        <p>혼자 가볍게 이어간다면 <strong>Pro</strong>로도 충분해요. 다만 집중해서 만들다 보면 한도가 금방 차서 멈추기도 해요. 넉넉하게 쓰고 싶으면 <strong>Max</strong>를 추천해요. 가격은 <a href="https://claude.com/pricing" target="_blank" rel="noopener">claude.com/pricing</a>에서 확인하세요.</p>
       </div>
-      <div class="info"><div><div class="t">앤트로픽(클로드) 공동창업자 벤자민 한국 초청 강연 운영 스탭진</div><div class="cat mono">Talk</div></div><div class="yr mono">2025</div></div>
-    </a>
 
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="780" height="468" src="/images/img-f94e5ec5db.webp" style="object-position:50% 38%" alt="뤼튼 AI 초대 연사" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">뤼튼 AI 초대 연사</div><div class="cat mono">Talk</div></div><div class="yr mono">2025</div></div>
-    </a>
+      <div class="ck">
+        <h3>내 컴퓨터에 클로드 코드 설치하기</h3>
+        <p>수업에서 터미널로 깔아봤죠? <strong>집 컴퓨터에도 똑같이</strong> 깔아두면 어디서든 쓸 수 있어요. 진짜 <span class="mk">복사 → 붙여넣기 → Enter</span>가 전부예요.</p>
 
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="860" height="645" src="/images/ai-99d11d4580.webp" style="object-position:50% 52%" alt="대기업 직원 AI 도입 워크샵" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">대기업 직원 AI 도입 워크샵</div><div class="cat mono">Workshop</div></div><div class="yr mono">2025</div></div>
-    </a>
+        <div class="os-toggle" role="tablist" aria-label="운영체제">
+          <button role="tab" aria-selected="true" data-os="mac">🍎 맥북 (Mac)</button>
+          <button role="tab" aria-selected="false" data-os="win">🪟 윈도우 (Windows)</button>
+        </div>
 
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="860" height="516" src="/images/ai-4252903f8e.webp" style="object-position:50% 45%" alt="중소기업 AI 도입 강의" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">중소기업 AI 도입 강의</div><div class="cat mono">Class</div></div><div class="yr mono">2025–26</div></div>
-    </a>
+        <div class="ospane on" data-pane="mac">
+          <ol class="steps">
+            <li><b>터미널 앱 열기.</b> <code class="in">Cmd</code>+<code class="in">스페이스바</code>로 검색창을 띄우고 <strong>터미널</strong>이라 친 뒤 Enter.</li>
+            <li><b>설치 명령어 붙여넣기.</b> 아래 한 줄을 복사해서 붙여넣고(<code class="in">Cmd</code>+<code class="in">V</code>) Enter.
+<div class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code><button class="copy" type="button">복사</button></div>
+            <span style="font-size:.9rem;color:var(--muted)">1분 안쪽이면 끝나요.</span></li>
+            <li><b>터미널 껐다 다시 켜기.</b> 창을 완전히 닫고 다시 열어주세요.</li>
+            <li><b>확인.</b> 버전 번호가 뜨면 성공!
+<div class="cmd"><code>claude --version</code><button class="copy" type="button">복사</button></div></li>
+            <li><b>실행하고 로그인.</b> <code class="in">claude</code> → 브라우저가 열리면 유료 계정으로 로그인 → 끝.
+<div class="cmd"><code>claude</code><button class="copy" type="button">복사</button></div></li>
+          </ol>
+          <div class="talk tip"><b>홈브루(Homebrew)를 쓰는 분이라면</b> <code class="in">brew install --cask claude-code</code> 한 줄로도 돼요.</div>
+        </div>
 
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="860" height="516" src="/images/ai-457f7a3ae8.webp" style="object-position:52% 48%" alt="청년 대상 AI 강의" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">청년 대상 AI 강의</div><div class="cat mono">Class</div></div><div class="yr mono">2025</div></div>
-    </a>
+        <div class="ospane" data-pane="win">
+          <ol class="steps">
+            <li><b>PowerShell 열기.</b> 시작 버튼을 <strong>오른쪽 클릭</strong> → <strong>터미널</strong> 또는 <strong>Windows PowerShell</strong> 선택. (안 보이면 <code class="in">Win</code>+<code class="in">R</code> → <code class="in">powershell</code> → Enter)</li>
+            <li><b>설치 명령어 붙여넣기.</b> <strong>오른쪽 클릭으로 붙여넣고</strong> Enter.
+<div class="cmd ps"><code>irm https://claude.ai/install.ps1 | iex</code><button class="copy" type="button">복사</button></div></li>
+            <li><b>PowerShell 껐다 다시 켜기.</b></li>
+            <li><b>확인.</b>
+<div class="cmd ps"><code>claude --version</code><button class="copy" type="button">복사</button></div></li>
+            <li><b>실행하고 로그인.</b> <code class="in">claude</code> → 브라우저에서 유료 계정 로그인 → 끝!
+<div class="cmd ps"><code>claude</code><button class="copy" type="button">복사</button></div></li>
+          </ol>
+          <div class="talk warn"><b>윈도우에서 한 가지.</b> 직접 파일·코드 작업을 하려면 <strong>Git</strong>이 필요할 수 있어요(<a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com</a>). WinGet을 쓴다면 <code class="in">winget install Anthropic.ClaudeCode</code>로도 돼요.</div>
+        </div>
 
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="860" height="645" src="/images/ai-e87e6a8777.webp" style="object-position:50% 50%" alt="교육박람회 초청 AI 부스 운영" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">교육박람회 초청 AI 부스 운영</div><div class="cat mono">Project</div></div><div class="yr mono">2026</div></div>
-    </a>
-
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="820" height="464" src="/images/play-with-notion-92c1d337db.webp" style="object-position:50% 42%" alt="노션 프로젝트 Play with Notion (어서노션 서바이벌)" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">노션 프로젝트 Play with Notion (어서노션 서바이벌)</div><div class="cat mono">Project</div></div><div class="yr mono">2025</div></div>
-    </a>
-
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="920" height="517" src="/images/img-a991f5ad01.webp" style="object-position:50% 42%" alt="노슈니 정규 클래스" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">노슈니 정규 클래스</div><div class="cat mono">Class</div></div><div class="yr mono">2026</div></div>
-    </a>
-
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="760" height="944" src="/images/img-af3162c7a2.webp" style="object-position:50% 20%" alt="노슈니 인스타 클래스" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">노슈니 인스타 클래스</div><div class="cat mono">Class</div></div><div class="yr mono">2026</div></div>
-    </a>
-
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="760" height="780" src="/images/img-d067e3f770.webp" style="object-position:50% 30%" alt="노슈니 원데이 클래스" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">노슈니 원데이 클래스</div><div class="cat mono">Class</div></div><div class="yr mono">2026</div></div>
-    </a>
-
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame contain"><img loading="lazy" decoding="async" width="640" height="640" src="/images/ai-pm-5a86033e39.webp" alt="셀피쉬클럽 AI 프로젝트 천스체 운영 PM" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">셀피쉬클럽 AI 프로젝트 천스체 운영 PM</div><div class="cat mono">Project</div></div><div class="yr mono">2023</div></div>
-    </a>
-
-    <a class="item reveal" href="https://shoocreamvillage.notion.site/focusaiedu?source=copy_link" target="_blank" rel="noopener">
-      <div class="frame"><img loading="lazy" decoding="async" width="900" height="475" src="/images/x-7af60aba36.webp" style="object-position:50% 40%" alt="뤼튼x셀피쉬클럽 에아이오락실 제주편 운영진" />
-        <div class="ovl"></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
-      </div>
-      <div class="info"><div><div class="t">뤼튼x셀피쉬클럽 에아이오락실 제주편 운영진</div><div class="cat mono">Project</div></div><div class="yr mono">2023</div></div>
-    </a>
-
-  </div>
-</section>
-
-<section class="products" id="products">
-  <div class="sec-head">
-    <div class="eb mono reveal">Products &amp; Services</div>
-    <h2 class="reveal">판매 상품 · 서비스</h2>
-    <p class="note reveal">그동안 진행해 온 강의와 서비스입니다. 문의는 우측 상단 <b>문의</b>를 눌러 남겨주세요.</p>
-  </div>
-  <div class="prod-grid">
-    <div class="prod reveal"><span class="ic">🚀</span><h3>AI 원데이 클래스</h3><p>하루만에 AI로 내 사이트를 만들고 배포하는 시간</p></div>
-    <div class="prod reveal"><span class="ic">🎓</span><h3>AI 실무 강의</h3><p>Claude · Claude Code를 활용해 실제 업무와 사업에 바로 쓰는 오프라인 집중 강의</p></div>
-    <div class="prod reveal"><span class="ic">🎬</span><h3>AI 콘텐츠 제작 강의</h3><p>인스타그램 카드뉴스 · 콘텐츠 자동화 등 AI 기반 콘텐츠 제작 실습 과정</p></div>
-    <div class="prod reveal"><span class="ic">🧩</span><h3>노션 · AI 템플릿</h3><p>업무 생산성을 높이는 노션 템플릿과 AI 활용 템플릿 판매</p></div>
-    <div class="prod reveal"><span class="ic">📘</span><h3>전자책</h3><p>AI로 SNS 브랜딩하기 등 비전공자를 위한 실전 AI 활용 전자책</p></div>
-    <div class="prod reveal"><span class="ic">⚡</span><h3>AI 생산성 강의</h3><p>노션과 AI를 결합해 반복 업무를 자동화하는 생산성 향상 과정</p></div>
-    <div class="prod reveal"><span class="ic">🏢</span><h3>기업 컨설팅</h3><p>팀 단위 AI 도입과 업무 자동화를 설계하는 맞춤형 교육 컨설팅</p></div>
-    <div class="prod reveal"><span class="ic">💬</span><h3>개인 컨설팅</h3><p>1:1로 내 일에 맞는 AI 활용법과 콘텐츠 자동화를 잡아주는 컨설팅</p></div>
-  </div>
-</section>
-
-
-<footer class="site">
-  <div class="cta-line">
-    <a href="/1day/">알림 신청하기 <span class="ar">↗</span></a>
-  </div>
-  <div class="foot-top">
-    <div class="foot-brand">
-      <div class="wm"><img loading="lazy" decoding="async" width="427" height="89" src="/images/noshooni-2b68e1c9a8.webp" alt="NOSHOONI" style="height:30px;display:block" /></div>
-      <div class="biz">
-        <span>노슈니 (NOSHOONI)</span> · 대표 오수인<br/>
-        비전공자를 위한 AI 교육 · 강의 · 컨설팅<br/>
-        Seoul, Korea
+        <div class="talk warn"><b>설치하다 막혔다면.</b> <code class="in">claude: command not found</code>가 뜨면 대부분 <strong>터미널을 껐다 켜면</strong> 해결돼요. 그래도 안 되면 <code class="in">claude doctor</code>로 점검, 그래도 안 풀리면 캡처해서 슬랙 채널에 올려주세요.</div>
       </div>
     </div>
-    <div class="foot-col">
-      <h4>About</h4>
-      <p>비전공자가 상상만 하던 서비스와 콘텐츠를 직접 완성해가도록 돕는 AI 교육 브랜드 노슈니. Claude · Claude Code · 콘텐츠 자동화를 소수정예 집중 과정으로 가르칩니다.</p>
+  </section>
+
+  <!-- FIRST -->
+  <section class="blk" id="first">
+    <p class="step">다섯, 다시 말 거는 법</p>
+    <h2>처음 켰을 때, 이렇게 말 걸어요</h2>
+    <p>작업할 폴더에서 <code class="in">claude</code>를 켜고, 그냥 말로 시키면 돼요. 잘 시키는 요령 세 가지만 다시 짚을게요.</p>
+
+    <h3>① 두루뭉술 말고, 콕 집어서</h3>
+    <div class="gb">
+      <div class="c x"><div class="t">✕ 이러면 헤매요</div><p class="ex">"문서 정리해줘"</p></div>
+      <div class="c o"><div class="t">✓ 이렇게 콕</div><p class="ex">"이 폴더 회의록들 날짜순으로 정리하고, 이번 달 결정사항만 뽑아서 요약.md로 저장해줘"</p></div>
     </div>
-    <div class="foot-col">
-      <h4>Social</h4>
-      <a href="https://www.instagram.com/focusai_edu" target="_blank" rel="noopener">Instagram ↗</a>
-      <a href="http://pf.kakao.com/_vCGPX" target="_blank" rel="noopener">KakaoTalk ↗</a>
+
+    <h3>② 한꺼번에 말고, 하나씩</h3>
+<pre class="code"><span class="pr">></span> 먼저 카드뉴스 1번 글만 써줘
+<span class="cm">  (확인하고)</span>
+<span class="pr">></span> 좋아, 이제 2번 글 써줘</pre>
+
+    <h3>③ 파일은 <code class="in">@</code>로 콕 집어주기</h3>
+<pre class="code"><span class="pr">></span> @회의록.txt 에서 할 일만 담당자별로 뽑아줘
+<span class="pr">></span> @설문결과.csv 분석해서 인사이트 3개 알려줘</pre>
+
+    <div class="talk"><b>마음에 안 들면 그냥 말하세요.</b> "말투를 더 친근하게", "이 부분은 빼줘"처럼 주거니 받거니 다듬는 게 정상이에요.</div>
+  </section>
+
+  <!-- TERMINAL -->
+  <section class="blk" id="terminal">
+    <p class="step">여섯, 길 안 잃는 법</p>
+    <h2>터미널, 딱 이만큼만 기억해요</h2>
+    <p>터미널이 어려운 게 아니라 <span class="mk">'내가 지금 어느 폴더에 있는지'</span>가 헷갈려서 막히는 거예요. 폴더를 '방'이라고 생각하면 쉬워요.</p>
+
+    <h3>잠깐 — 터미널이 만든 폴더는 어디 있어요?</h3>
+    <p>왕초보가 제일 어리둥절해하는 부분이에요. 결론부터 말하면, <span class="mk">터미널로 만든 폴더 = 진짜 내 컴퓨터 폴더</span>예요. Finder(맥)나 파일 탐색기(윈도우)에서 평소처럼 보이는, 마우스로 우클릭해서 '새 폴더' 만드는 그것과 <strong>완전히 똑같은 폴더</strong>예요. 터미널은 그저 '마우스 대신 말(명령어)로' 폴더를 만드는 방법일 뿐이에요. 터미널만의 특별한 폴더가 따로 생기는 게 아니에요.</p>
+    <p>그럼 그 폴더가 어디에 생길까요? <strong>지금 내가 서 있는 폴더(현재 위치) 안</strong>에 생겨요. 터미널을 켜면 늘 <strong>홈 폴더</strong>에서 시작하니까, 켜자마자 <code class="in">mkdir 카드뉴스</code>를 하면 홈 폴더 안에 '카드뉴스' 방이 생기는 거죠.</p>
+    <p>홈 폴더는 <strong>내 이름으로 된 '내 집' 같은 폴더</strong>예요. 평소 쓰는 바탕화면·문서·다운로드가 전부 이 안에 들어 있어요.</p>
+    <div class="tree"><span class="root">🏠 홈 폴더 (내 집)</span>   <span style="color:var(--muted)">맥: 사용자/내이름  ·  윈도우: C:\Users\내이름</span>
+├─ 🖥️ 바탕화면 (Desktop)
+├─ 📄 문서 (Documents)
+├─ ⬇️ 다운로드 (Downloads)
+└─ <span class="hl">📁 카드뉴스   ← 방금 mkdir로 만든 폴더가 여기 생겨요!</span></div>
+    <p>눈으로 직접 확인하고 싶으면, <strong>지금 있는 폴더를 화면(Finder·탐색기)으로 바로 열 수</strong> 있어요. 점(<code class="in">.</code>) 하나가 '지금 이 폴더'라는 뜻이에요.</p>
+    <div class="cmd-block">
+      <p class="cmd-note">맥에서 — 지금 폴더를 Finder로 열기</p>
+      <div class="cmd"><code>open .</code><button class="copy" type="button">복사</button></div>
+      <p class="cmd-note">윈도우에서 — 지금 폴더를 탐색기로 열기</p>
+      <div class="cmd ps"><code>start .</code><button class="copy" type="button">복사</button></div>
     </div>
-    <div class="foot-col">
-      <h4>Contact</h4>
-      <a href="/about">강사 소개 ↗</a>
-      <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의하기 ↗</a>
+    <div class="talk tip"><b>이거 하나만 기억하면 안 헷갈려요.</b> 터미널에서 뭔가 만든 뒤 "어디 갔지?" 싶으면, 그 자리에서 <code class="in">open .</code>(맥) 또는 <code class="in">start .</code>(윈도우)를 쳐보세요. 방금 만든 폴더가 화면에 짠 하고 열려요.</div>
+
+    <h3>핵심 3줄: 방 만들고 → 들어가서 → 클로드 부르기</h3>
+    <div class="cmd-block">
+      <p class="cmd-note">① '카드뉴스'라는 방(폴더) 만들기</p>
+      <div class="cmd"><code>mkdir 카드뉴스</code><button class="copy" type="button">복사</button></div>
+      <p class="cmd-note">② 그 방으로 걸어 들어가기</p>
+      <div class="cmd"><code>cd 카드뉴스</code><button class="copy" type="button">복사</button></div>
+      <p class="cmd-note">③ 그 방에서 클로드 부르기</p>
+      <div class="cmd"><code>claude</code><button class="copy" type="button">복사</button></div>
     </div>
+    <p>다른 작업으로 옮길 땐 <code class="in">cd ..</code>로 방에서 나온 뒤, 새 방을 만들어 똑같이 하면 돼요.</p>
+
+    <h3>길 잃었을 때 쓰는 두 마디</h3>
+    <div class="tbl"><table>
+      <tr><th>명령어</th><th>이런 뜻이에요</th></tr>
+      <tr><td><code>pwd</code></td><td>"나 지금 <strong>어느 방</strong>에 있어?" — 현재 위치 보여줘</td></tr>
+      <tr><td><code>ls</code></td><td>"이 방 안에 <strong>뭐가</strong> 있어?" — 파일 목록 보여줘</td></tr>
+    </table></div>
+
+    <div class="talk warn"><b>자주 하는 실수 ①.</b> 폴더 이름에 <strong>띄어쓰기는 금물</strong>. <code class="in">mkdir 카드 뉴스</code>처럼 띄우면 폴더가 두 개로 쪼개져요. 붙여 쓰거나 <code class="in">-</code>, <code class="in">_</code>를 넣으세요. → <code class="in">mkdir 카드뉴스</code></div>
+    <div class="talk warn"><b>실수 ②.</b> "폴더가 바탕화면에 안 보여요!" 터미널은 켜면 항상 <strong>홈 폴더(<code class="in">~</code>)</strong>에서 시작해요. 바탕화면에 만들려면 먼저 이동. → <code class="in">cd ~/Desktop</code></div>
+  </section>
+
+  <!-- MEMORY -->
+  <section class="blk" id="memory">
+    <p class="step">일곱, 한 번 더 편하게</p>
+    <h2>내 규칙을 기억시키기 (CLAUDE.md)</h2>
+    <p>클로드 코드는 창을 닫으면 대화를 잊어버려요. 그런데 폴더 안에 <strong>CLAUDE.md</strong>라는 파일을 하나 두면, 켤 때마다 <span class="mk">자동으로 읽어서 내 규칙을 기억</span>해요. 매번 같은 설명을 안 해도 되는 거죠.</p>
+    <p>제일 쉬운 방법은 그냥 클로드한테 만들어 달라고 하는 거예요.</p>
+<pre class="code"><span class="pr">></span> 이 폴더는 내 인스타 콘텐츠 작업방이야.
+<span class="pr">></span> 말투는 친근하게, 과장 표현은 빼고, 항상 한국어로 써줘.
+<span class="pr">></span> 이 내용으로 CLAUDE.md 파일을 만들어줘.</pre>
+    <p>한 번 적어두면, 다음부터는 "친근하게 써줘"를 매번 말 안 해도 알아서 지켜요. 콘텐츠 작업이라면 이런 걸 넣어두면 좋아요.</p>
+    <ul>
+      <li><strong>이 폴더가 하는 일</strong> — "인스타 카드뉴스랑 캡션 작업방"</li>
+      <li><strong>말투·스타일</strong> — "친근하지만 과장 금지, 항상 한국어"</li>
+      <li><strong>하지 말 것</strong> — "경쟁사 실명 쓰지 않기" 같은 금지선</li>
+      <li><strong>저장 규칙</strong> — "초안은 drafts/ 폴더에, 파일명은 날짜_주제"</li>
+    </ul>
+    <div class="talk tip"><b>이거 하나면 훨씬 편해져요.</b> 바로 다음 장에서 이걸 더 편하게 쓰는 습관을 알려드릴게요.</div>
+  </section>
+
+  <!-- HABITS -->
+  <section class="blk" id="habits">
+    <p class="step">여덟, 알아두면 편해요</p>
+    <h2>꼭 알아두면 두고두고 편한 것들</h2>
+    <p>외울 필요 없어요. "아, 이런 게 있었지" 정도만 기억해두면 나중에 큰 도움이 돼요.</p>
+
+    <h3>새 프로젝트는 항상 <code class="in">/init</code>부터</h3>
+    <p>작업 폴더에서 클로드를 켜자마자 <code class="in">/init</code>을 해보세요. 클로드가 폴더를 쓱 둘러보고 <span class="mk">CLAUDE.md(내 규칙 메모장)</span>를 알아서 만들어줘요.</p>
+    <div class="talk tip"><b>중간에 떠오른 규칙은 <code class="in">#</code>으로 바로 저장.</b> 작업하다 "앞으로 이건 이렇게 해줘" 싶을 때, 메시지 맨 앞에 <code class="in">#</code>를 붙여 적으면 그 내용이 메모리(CLAUDE.md)에 바로 기록돼요.<br>예: <code class="in"># 캡션 끝엔 항상 "프로필 링크에서 신청" 붙이기</code></div>
+
+    <h3>그 밖에 몸에 익히면 좋은 습관</h3>
+    <ul>
+      <li><strong>대화가 길어지면 <code class="in">/compact</code></strong> — 느려졌다 싶을 때 한 번 정리(압축)하면 다시 쾌적해져요.</li>
+      <li><strong>새 일은 <code class="in">/clear</code>로 초기화</strong> — 앞 작업이랑 상관없는 새 일을 시작할 땐 깨끗이 비우고.</li>
+      <li><strong>실수했으면 <code class="in">Esc</code> 두 번</strong> — 잘못 바뀌었을 때 이전 상태로 되돌리는 안전장치.</li>
+      <li><strong>큰 작업 전엔 <code class="in">Shift+Tab</code>(Plan 모드)</strong> — 여러 파일을 한꺼번에 바꾸기 전에 '계획만 먼저 보기'.</li>
+      <li><strong>비밀번호·카드번호·키는 절대 입력 금지</strong> — 민감한 정보는 대화창에 적지 않기.</li>
+      <li><strong>모르면 그냥 물어보기</strong> — "왜 이렇게 해? 다른 방법 없어?" 클로드는 같이 고민하는 파트너예요.</li>
+    </ul>
+
+    <h3>자주 쓰는 명령어 (대화 중 <code class="in">/</code>로 시작)</h3>
+    <div class="tbl"><table>
+      <tr><th>명령어</th><th>이럴 때 써요</th></tr>
+      <tr><td><code>/init</code></td><td>프로젝트 시작 — 폴더 파악해서 CLAUDE.md 자동 생성</td></tr>
+      <tr><td><code>/memory</code></td><td>CLAUDE.md 열어서 직접 고치기</td></tr>
+      <tr><td><code>/compact</code></td><td>대화가 길어졌을 때 정리(압축)</td></tr>
+      <tr><td><code>/clear</code></td><td>새 작업 시작 — 대화 초기화</td></tr>
+      <tr><td><code>/cost</code></td><td>이번 세션에 쓴 사용량 보기</td></tr>
+      <tr><td><code>/plugin</code></td><td>플러그인·스킬 설치 창 열기</td></tr>
+      <tr><td><code>/help</code></td><td>명령어 전체 목록 보기</td></tr>
+    </table></div>
+
+    <h3>자주 쓰는 단축키 · 기호</h3>
+    <div class="tbl"><table>
+      <tr><th>키 · 기호</th><th>하는 일</th></tr>
+      <tr><td><code>@파일명</code></td><td>그 파일을 콕 집어 클로드에게 넘기기</td></tr>
+      <tr><td><code>#문장</code></td><td>그 문장을 메모리(CLAUDE.md)에 규칙으로 바로 저장</td></tr>
+      <tr><td><code>Shift+Tab</code></td><td>권한 모드 전환 (기본 ↔ 자동 ↔ Plan)</td></tr>
+      <tr><td><code>Esc</code></td><td>진행 중인 답변 잠깐 멈추기</td></tr>
+      <tr><td><code>Esc Esc</code></td><td>되돌리기 메뉴 — 이전 상태로 복원</td></tr>
+      <tr><td><code>Ctrl+C</code></td><td>지금 작업 취소</td></tr>
+    </table></div>
+    <div class="talk"><b>터미널에서 클로드 켜기 전 명령도 몇 개.</b> <code class="in">claude</code>(켜기), <code class="in">claude -c</code>(직전 대화 이어서), <code class="in">claude --version</code>(버전), <code class="in">claude doctor</code>(점검).</div>
+  </section>
+
+  <!-- POWER: plugins & skills -->
+  <section class="blk" id="power">
+    <p class="step">아홉, 남이 만든 걸 빌려 쓰기</p>
+    <h2>플러그인 · 스킬 깔아서 더 편하게</h2>
+    <p>여기가 진짜 신세계예요. 클로드 코드는 기본도 강력하지만, <strong>남이 잘 만들어둔 '능력 묶음'</strong>을 깔면 훨씬 편해져요. 저도 <span class="mk">'끼리끼리' 같은 걸 터미널에 깔아두니까</span> 일이 확 줄더라고요. 그 까는 법을 알려드릴게요.</p>
+
+    <h3>스킬 · 플러그인이 뭐예요?</h3>
+    <p>클로드에게 <strong>"이런 일은 이렇게 하는 거야"라고 미리 가르쳐둔 능력 묶음</strong>이에요. 스마트폰에 앱 깔듯, 필요한 걸 골라 깔면 명령어 하나로 불러 쓸 수 있어요. (스킬 여러 개를 묶어 한 번에 설치하는 게 '플러그인'이에요.)</p>
+
+    <h3>까는 기본 순서</h3>
+    <ol class="steps">
+      <li><b>마켓(저장소) 한 번 등록.</b> 클로드 코드 안에서 한 줄 입력 — <code class="in">/plugin marketplace add 저장소주소</code></li>
+      <li><b>원하는 걸 설치.</b> <code class="in">/plugin install</code>로 목록에서 고르거나, 이름을 바로 적어요.</li>
+      <li><b>클로드 코드 재시작.</b> 그래야 새로 깐 게 켜져요.</li>
+    </ol>
+    <div class="talk tip"><b>제일 쉬운 길.</b> 사실 더 쉬운 방법도 있어요. 깃허브 주소를 통째로 붙여넣고 <strong>"이거 보고 설치하는 것 좀 도와줘"</strong>라고 클로드에게 부탁하면, 알아서 설치를 안내해줘요. 명령어가 헷갈리면 이렇게 하세요.</div>
+
+    <h3>① 한국 입문자용 플러그인 모음</h3>
+    <p>비개발자·바이브코더를 위해 한국어로 만든 플러그인 모음이에요. 제가 쓰는 <strong>끼리끼리</strong>도 여기 있어요. API 키 같은 거 없이 깔면 바로 써요.</p>
+    <div class="cmd-block">
+      <p class="cmd-note">먼저, 마켓을 한 번만 등록해요 (최초 1회). 이것만 해두면 아래 카드 명령어로 바로 깔려요.</p>
+      <div class="cmd ps"><code>/plugin marketplace add https://github.com/fivetaku/gptaku_plugins.git</code><button class="copy" type="button">복사</button></div>
+    </div>
+    <p>이제 아래에서 원하는 걸 골라, <strong>카드 속 명령어를 복사해 붙여넣고</strong> 클로드 코드를 재시작하면 끝이에요.</p>
+    <div class="ten">
+      <div class="item star"><div class="head"><span class="ic">🐔</span><span class="nm">끼리끼리</span><span class="badge">노슈니 PICK</span></div><p>"리서치 팀 만들어줘" 한마디면 AI 팀을 자동으로 꾸려 같이 일해줘요.</p><div class="cmd ps"><code>/plugin install kkirikkiri</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">📝</span><span class="nm">쇼미더피알디</span></div><p>아이디어 한 줄 → 인터뷰 몇 번으로 기획서를 뚝딱 만들어줘요.</p><div class="cmd ps"><code>/plugin install show-me-the-prd</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">🔬</span><span class="nm">딥리서치</span></div><p>여러 자료를 한꺼번에 조사·교차검증해 정리 보고서로.</p><div class="cmd ps"><code>/plugin install deep-research</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">🏢</span><span class="nm">노팔</span></div><p>구글 캘린더·드라이브·시트·Gmail 등 9개를 말로 한 번에.</p><div class="cmd ps"><code>/plugin install nopal</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">🎓</span><span class="nm">바르다 깃선생</span></div><p>비개발자용 Git/GitHub 입문. "커밋이 뭐야?"부터 쉽게.</p><div class="cmd ps"><code>/plugin install git-teacher</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">🎨</span><span class="nm">인세인 디자인</span></div><p>마음에 든 웹사이트 주소만 넣으면 그 디자인 감각을 분석해줘요.</p><div class="cmd ps"><code>/plugin install insane-design</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">📚</span><span class="nm">독스 가이드</span></div><p>공식 문서를 참고해 정확히 답해줘요. 엉뚱한 답 줄이기.</p><div class="cmd ps"><code>/plugin install docs-guide</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">💬</span><span class="nm">수다</span></div><p>전문가 4명이 토론하듯, 막연한 아이디어를 쓸 수 있는 스킬로.</p><div class="cmd ps"><code>/plugin install skillers-suda</code><button class="copy" type="button">복사</button></div></div>
+    </div>
+    <div class="talk warn"><b>윈도우는 한 가지 더.</b> 이 모음은 클로드 코드 전용이고, <strong>윈도우에서는 WSL2 환경이 필요</strong>해요(맥은 바로 됩니다). 조금 고급 단계라, 윈도우 쓰는 분은 수업 때나 슬랙에서 같이 잡아드릴게요.</div>
+
+    <h3>② k-skill — 한국 생활 스킬 모음</h3>
+    <p>한국인 일상에 필요한 걸 모아둔 스킬 모음이에요. SRT 예매부터 <strong>청약 공고·주식 정보 조회</strong>까지 수십 가지가 들어 있어요. 깃허브는 <a href="https://github.com/NomaDamas/k-skill" target="_blank" rel="noopener">github.com/NomaDamas/k-skill</a>.</p>
+    <div class="ten">
+      <div class="item star"><div class="head"><span class="ic">🏠</span><span class="nm">LH·SH 청약 공고 조회</span></div><p>LH·SH의 청약·주택 공고문을 찾아 정리해줘요. (정보 조회)</p><div class="cmd"><code>npx --yes skills add NomaDamas/k-skill --skill lh-notice-search --skill sh-notice-search</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item star"><div class="head"><span class="ic">📈</span><span class="nm">한국 주식 정보 조회</span></div><p>종목·시세 같은 주식 정보를 모아 보여줘요. (정보 조회)</p><div class="cmd"><code>npx --yes skills add NomaDamas/k-skill --skill korean-stock-search</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">🚄</span><span class="nm">SRT 예매</span></div><p>열차 조회·예약·확인·취소. (로그인 인증 필요)</p><div class="cmd"><code>npx --yes skills add NomaDamas/k-skill --skill srt-booking</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">🎯</span><span class="nm">로또 당첨 확인</span></div><p>최신·특정 회차 번호 대조. 인증 없이 바로.</p><div class="cmd"><code>npx --yes skills add NomaDamas/k-skill --skill lotto-results</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">⚾</span><span class="nm">KBO 경기 결과</span></div><p>날짜별 일정·결과·팀별 조회.</p><div class="cmd"><code>npx --yes skills add NomaDamas/k-skill --skill kbo-results</code><button class="copy" type="button">복사</button></div></div>
+      <div class="item"><div class="head"><span class="ic">📄</span><span class="nm">한글(HWP) 변환</span></div><p>.hwp 파일을 읽어 텍스트·마크다운으로 변환.</p><div class="cmd"><code>npx --yes skills add NomaDamas/k-skill --skill hwp</code><button class="copy" type="button">복사</button></div></div>
+    </div>
+    <p>위 카드의 명령어는 <strong>그 스킬 하나만 골라 까는 방법</strong>이에요(클로드 코드가 아니라 터미널에 붙여넣어요). SRT처럼 <strong>로그인이 필요한 스킬</strong>은 깐 뒤에 <code class="in">k-skill-setup</code>으로 공통 설정을 한 번 해줘야 해요. 한꺼번에 전부 깔고 싶으면, 깃허브 주소를 클로드에 붙여넣고 "이 레포 보고 k-skill 전체 설치 도와줘"라고 하면 알아서 해줘요.</p>
+
+    <div class="talk warn"><b>딱 하나만 주의.</b> 플러그인·스킬은 누구나 만들 수 있어서, <strong>믿을 만한 공식·검증된 것만</strong> 까세요. 정확한 주소·명령어는 바뀌기도 하니 각 깃허브 안내를 따르고, 처음엔 2~3개만 깔아도 충분해요.</div>
+  </section>
+
+  <!-- RAILWAY -->
+  <section class="blk" id="railway">
+    <p class="step">열, 만든 걸 24시간 돌리기</p>
+    <h2>레일웨이(Railway) — 클라우드에 켜두는 내 컴퓨터</h2>
+    <p>수업에서 <strong>슬랙봇</strong> 만들어봤죠? 그런데 봇이 24시간 대답하려면 봇이 계속 켜져 있어야 해요. 내 노트북을 하루 종일 켜둘 순 없잖아요.</p>
+    <p>그래서 <a href="https://railway.com/" target="_blank" rel="noopener">레일웨이</a>를 써요. 레일웨이는 <span class="mk">클라우드에 '항상 켜져 있는 컴퓨터' 한 대를 빌려주는</span> 서비스예요. 거기에 봇을 올려두면, <strong>내 노트북을 꺼도 어디서든 봇이 살아서 일해요.</strong></p>
+
+    <h3>집에서 다시 올릴 땐 이렇게</h3>
+    <ol class="steps">
+      <li><b>봇 코드를 GitHub에 올리기.</b> 클로드 코드가 옆에서 도와줘요.</li>
+      <li><b>레일웨이에서 그 GitHub 저장소를 연결.</b> 마우스 클릭 몇 번이면 돼요.</li>
+      <li><b>레일웨이가 알아서 켜줌.</b> 코드를 가져와 빌드하고 24시간 실행. 보통 몇 분이면 끝.</li>
+      <li><b>이제 슬랙에서 봇을 부르면</b> 언제든 대답해요.</li>
+    </ol>
+
+    <h3>비용은요</h3>
+    <p>처음엔 <strong>무료 체험 크레딧($5, 카드 없이 시작)</strong>이 있어요. 이후엔 쓴 만큼 내는 방식이고, 작은 봇 하나는 보통 <strong>월 $5 안팎</strong>이에요. 정확한 가격은 <a href="https://railway.com/" target="_blank" rel="noopener">railway.com</a>에서 확인하세요.</p>
+    <div class="talk tip"><b>혼자 다시 해볼 때.</b> 수업에서 한 번 해봤으니 어렵지 않아요. 막히면 그때 화면 캡처해서 슬랙에 올려주세요. 같이 봐드릴게요.</div>
+  </section>
+</main>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="in">
+    <p class="from">혼자서도 잘하고 있어요 :)</p>
+    <h2>막히면 언제든,<br>다시 펼쳐 보세요</h2>
+    <p>이 노트가 도움이 됐다면, 다음 기수·새 수업 소식도 제일 먼저 알려드릴게요. 주변에 "나도 배우고 싶다"는 분이 있다면 알림 신청을 권해주세요.</p>
+    <a class="alert-btn big" href="https://shoocreamvillage.notion.site/1675e8593cb68236869b81175250da57?pvs=105" target="_blank" rel="noopener"><span class="bell">🔔</span> 오픈 알림 신청하기</a>
   </div>
-  <div class="foot-bar">
-    <span class="mono">© 2026 노슈니 (NOSHOONI). All rights reserved.</span>
-    <span class="mono">AI 강사 · 강의 · 컨설팅</span>
-  </div>
-</footer>
+  <footer>
+    <div class="ft">
+      <a class="logo" href="/" aria-label="NOSHOONI"><img src="/images/noshooni-5f95636263.webp" alt="NOSHOONI" width="427" height="89" style="height:20px;width:auto;display:block;opacity:.9"></a>
+      <small>© 노슈니 (NOSHOONI) · 노슈니의 클로드 코드 복습 노트 · 가격·설치 방법·플러그인 목록은 공식 안내에 따라 바뀔 수 있어요.</small>
+    </div>
+  </footer>
+</div>
 
 <script>
-(function(){
-  var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
-
-  /* custom difference cursor */
-  if(fine){
-    document.body.classList.add("cursor-on");
-    var cur=document.querySelector(".cursor");
-    var mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
-    addEventListener("mousemove",function(e){mx=e.clientX;my=e.clientY;});
-    (function loop(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;
-      cur.style.left=cx+"px";cur.style.top=cy+"px";requestAnimationFrame(loop);})();
-    document.querySelectorAll("a,button,.item").forEach(function(el){
-      el.addEventListener("mouseenter",function(){cur.classList.add("big");});
-      el.addEventListener("mouseleave",function(){cur.classList.remove("big");});
+  document.querySelectorAll('.cmd .copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var code=b.parentElement.querySelector('code').textContent;
+      function done(){var t=b.dataset.t||b.textContent;b.dataset.t=t;b.textContent='복사됨!';b.classList.add('done');setTimeout(function(){b.textContent=t;b.classList.remove('done')},1400)}
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(code).then(done).catch(fallback);
+      }else{fallback()}
+      function fallback(){var ta=document.createElement('textarea');ta.value=code;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);done()}
     });
-  }
-
-  /* menu toggle */
-  var mt=document.querySelector(".menu-toggle");
-  mt.addEventListener("click",function(){document.body.classList.toggle("menu-open");});
-  document.querySelectorAll(".overlay a").forEach(function(a){
-    a.addEventListener("click",function(){document.body.classList.remove("menu-open");});
   });
 
-  /* hero staggered letter reveal */
-  var hero=document.getElementById("hero");
-  document.querySelectorAll(".hero-title .line").forEach(function(line,li){
-    var txt=line.getAttribute("data-text")||"";
-    var frag=document.createDocumentFragment();
-    txt.split("").forEach(function(chr,i){
-      var s=document.createElement("span");
-      s.className="ch"+(chr===" "?" sp":"");
-      s.textContent=chr===" "?"":chr;
-      s.style.transitionDelay=(li*0.12 + i*0.045)+"s";
-      frag.appendChild(s);
+  document.querySelectorAll('.os-toggle button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var scope=b.closest('.ck');
+      scope.querySelectorAll('.os-toggle button').forEach(function(x){x.setAttribute('aria-selected','false')});
+      b.setAttribute('aria-selected','true');
+      var key=b.dataset.os;
+      scope.querySelectorAll('.ospane').forEach(function(p){p.classList.toggle('on',p.dataset.pane===key)});
     });
-    line.appendChild(frag);
   });
-  requestAnimationFrame(function(){requestAnimationFrame(function(){
-    hero.classList.add("in");
-    hero.querySelectorAll(".hero-title .ch").forEach(function(c){c.style.transform="translateY(0)";});
-  });});
-
-  /* reveal on scroll */
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target);}});
-  },{threshold:.14});
-  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
-
-  /* duplicate marquee for seamless loop */
-  var track=document.getElementById("track");
-  track.innerHTML+=track.innerHTML;
-})();
+  var links=document.querySelectorAll('.chapnav a'), map={};
+  links.forEach(function(l){map[l.getAttribute('href').slice(1)]=l});
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){l.classList.remove('active')});
+        var a=map[e.target.id];
+        if(a){a.classList.add('active');
+          var row=a.parentElement;
+          if(row.scrollWidth>row.clientWidth){row.scrollTo({left:a.offsetLeft-20,behavior:'smooth'})}
+        }
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section.blk').forEach(function(s){obs.observe(s)});
 </script>
-<script>(function(){var h=document.querySelector("header.site");addEventListener("scroll",function(){h.classList.toggle("scrolled",window.scrollY>40);},{passive:true});})();</script>
 </body>
 </html>

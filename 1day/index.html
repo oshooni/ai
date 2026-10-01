@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="9월 19일(토)·10월 4일(일) 15:00–18:00 · 강남 · 3시간. AI가 낯선 분들을 위한 원데이 클래스. 오늘 하루, 나만의 AI를 갖게 됩니다.">
+<meta name="description" content="11월 8일(일) 15:00–18:00 · 강남 · 3시간. AI가 낯선 분들을 위한 원데이 클래스. 오늘 하루, 나만의 AI를 갖게 됩니다.">
 <meta name="theme-color" content="#0e0e10">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NOSHOONI AI Edu">
 <meta property="og:title" content="AI랑 친해지기 · 노슈니 원데이 클래스">
-<meta property="og:description" content="9월 19일(토)·10월 4일(일) 15:00–18:00 · 강남 · 3시간. AI가 낯선 분들을 위한 원데이 클래스. 오늘 하루, 나만의 AI를 갖게 됩니다.">
+<meta property="og:description" content="11월 8일(일) 15:00–18:00 · 강남 · 3시간. AI가 낯선 분들을 위한 원데이 클래스. 오늘 하루, 나만의 AI를 갖게 됩니다.">
 <meta property="og:url" content="https://noshooni.com/1day/">
 <meta property="og:image" content="https://noshooni.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -261,6 +261,36 @@ details .body{padding:0 0 24px;font-size:15px;line-height:1.85;color:var(--muted
 .prep b{color:var(--cream);font-weight:600}
 footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;color:var(--faint);letter-spacing:0}
 
+/* 신청 폼 */
+.form{max-width:720px;margin-top:36px;display:grid;gap:22px}
+.fg{display:flex;flex-direction:column;gap:8px}
+.fl{font-size:14px;font-weight:600;color:var(--cream);letter-spacing:-.02em}
+.fl .req{color:var(--purple-lt);margin-left:3px}
+.fh{font-size:13px;color:var(--faint);line-height:1.6}
+.fi,.fs,.ft{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:4px;
+  padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;line-height:1.5;
+  transition:border-color .25s var(--ease)}
+.fi:focus,.fs:focus,.ft:focus{outline:none;border-color:var(--purple)}
+.fi::placeholder,.ft::placeholder{color:var(--faint)}
+.ft{min-height:88px;resize:vertical}
+.fs{appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 21px) 22px,calc(100% - 16px) 22px;background-size:5px 5px;background-repeat:no-repeat}
+.fs option{background:#141317;color:var(--text)}
+.fck{display:flex;gap:11px;align-items:flex-start;cursor:pointer}
+.fck input{margin:1px 0 0;width:18px;height:18px;flex:none;accent-color:var(--purple)}
+.fck span{font-size:14.5px;color:var(--text);line-height:1.6}
+.fprv{border:1px solid var(--line);border-radius:4px;padding:18px 20px;background:var(--bg-2)}
+.fprv .ph{font-size:13.5px;font-weight:600;color:var(--cream);margin-bottom:10px}
+.fprv ul{list-style:none;margin:0 0 16px;display:flex;flex-direction:column;gap:5px}
+.fprv li{font-size:13px;color:var(--muted);line-height:1.65;padding-left:11px;position:relative}
+.fprv li::before{content:"·";position:absolute;left:2px;color:var(--faint)}
+.fsub{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:2px}
+button.btn{border:0;cursor:pointer;font-family:inherit}
+button.btn[disabled]{opacity:.5;cursor:default}
+.ferr{color:#ff9292;font-size:14px;line-height:1.6}
+.ferr:empty{display:none}
+
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:240;background:rgba(20,19,23,.94);backdrop-filter:blur(12px);
   border-top:1px solid var(--line);padding:12px 0}
 .sticky .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -353,13 +383,13 @@ footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;col
   <dl class="spec">
     <div><dt>기간</dt><dd>하루 · 원데이</dd></div>
     <div><dt>시간</dt><dd>3시간</dd></div>
-    <div><dt>일자</dt><dd>9월 19일(토)<br>10월 4일(일) 중 택1</dd></div>
+    <div><dt>일자</dt><dd>11월 8일(일)</dd></div>
     <div><dt>정원</dt><dd>소수정예</dd></div>
   </dl>
 
   <div class="cta-row">
     <a class="btn" href="#apply">신청하기 <span class="ar">&#8594;</span></a>
-    <span class="cta-note">9월 19일(토)·10월 4일(일) 중 택1 · 15:00–18:00 · 강남 · 노트북 필수</span>
+    <span class="cta-note">11월 8일(일) · 15:00–18:00 · 강남 · 노트북 필수</span>
   </div>
 
   <div class="shots">
@@ -670,7 +700,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;col
       <span class="nm">AI랑 친해지기 · 원데이 클래스</span>
       <span class="qt">소수정예 · 선착순</span>
     </div>
-    <div class="pl"><span>일정</span><span class="v">2026년 9월 19일(토)<br>10월 4일(일) 중 택1</span></div>
+    <div class="pl"><span>일정</span><span class="v">2026년 11월 8일(일)</span></div>
     <div class="pl"><span>시간</span><span class="v">15:00 – 18:00 (3시간)</span></div>
     <div class="pl"><span>장소</span><span class="v">서울 강남 <span class="hint">(자세한 주소는 수업 하루 전 문자 안내)</span></span></div>
     <div class="pl"><span>구성</span><span class="v">1회 · 총 3시간</span></div>
@@ -679,12 +709,87 @@ footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;col
       <span class="lab">수강료</span>
       <span class="amt">300,000원</span>
     </div>
-    <div class="price-foot">입금이 확인되면 신청이 완료됩니다. 환불 규정은 아래 FAQ에 그대로 적어뒀으니 신청 전에 확인해주세요.</div>
+    <div class="price-foot">아래 신청서를 작성하면 바로 카드결제로 이어집니다. 결제까지 끝나야 신청이 완료돼요. 환불 규정은 아래 FAQ에 그대로 적어뒀으니 신청 전에 확인해주세요.</div>
   </div>
-  <div class="cta-row">
-    <a class="btn" href="https://shoocreamvillage.notion.site/9715e8593cb6834693cd01b141f57e7e" target="_blank" rel="noopener">신청서 작성하기 <span class="ar">&#8594;</span></a>
-    <span class="cta-note" style="color:var(--muted)">신청 후 안내 메시지를 보내드립니다</span>
-  </div>
+  <form class="form" id="apply-form">
+    <div class="fg">
+      <label class="fl" for="f-name">이름<span class="req">*</span></label>
+      <span class="fh">실명 기준으로 작성해주세요.</span>
+      <input class="fi" id="f-name" name="name" type="text" required autocomplete="name" placeholder="오수인">
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-phone">연락 가능한 전화번호<span class="req">*</span></label>
+      <span class="fh">카카오톡 또는 문자로 연락드릴 번호예요.</span>
+      <input class="fi" id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="010-1234-5678">
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-email">이메일 주소<span class="req">*</span></label>
+      <span class="fh">오타 주의해주세요!</span>
+      <input class="fi" id="f-email" name="email" type="email" required autocomplete="email" placeholder="noshooni@example.com">
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-schedule">원데이 일정<span class="req">*</span></label>
+      <select class="fs" id="f-schedule" name="schedule" required>
+        <option>11월 8일 (일) 15:00-18:00</option>
+      </select>
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-job">직업</label>
+      <span class="fh">하시는 일을 간단하게 적어주세요.</span>
+      <input class="fi" id="f-job" name="job" type="text" placeholder="카페 운영 / 마케터 / 프리랜서 …">
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-level">지금 AI를 얼마나 써보셨어요?<span class="req">*</span></label>
+      <span class="fh">솔직하게 선택해주세요. 완전 초보도 전혀 문제없어요 :)</span>
+      <select class="fs" id="f-level" name="ai_level" required>
+        <option value="">선택해주세요</option>
+        <option>거의 안 써봤어요 (챗GPT도 낯설어요)</option>
+        <option>조금 써봤는데 잘 모르겠어요</option>
+        <option>가끔 쓰는데 제대로 배우고 싶어요</option>
+      </select>
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-reason">이 수업에 신청하게 된 이유</label>
+      <textarea class="ft" id="f-reason" name="reason" placeholder="편하게 적어주세요."></textarea>
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-want">만들고 싶은 게 있다면</label>
+      <textarea class="ft" id="f-want" name="want" placeholder="아직 없어도 괜찮아요."></textarea>
+    </div>
+
+    <div class="fg">
+      <label class="fl" for="f-note">추가 질문이나 요청사항</label>
+      <textarea class="ft" id="f-note" name="note"></textarea>
+    </div>
+
+    <div class="fprv">
+      <p class="ph">개인정보 수집 및 이용 동의</p>
+      <ul>
+        <li>수집 항목 &#183; 이름, 연락처, 이메일</li>
+        <li>이용 목적 &#183; 수강 신청 확인 및 안내 연락</li>
+        <li>신청 처리와 연락 외의 용도로는 쓰지 않습니다.</li>
+        <li>안내와 등록이 끝나면 폐기합니다.</li>
+      </ul>
+      <label class="fck">
+        <input type="checkbox" name="consent" required>
+        <span>개인정보 수집 및 이용에 동의합니다. <span class="req">*</span></span>
+      </label>
+    </div>
+
+    <p class="ferr" id="apply-err" role="alert"></p>
+
+    <div class="fsub">
+      <button class="btn" id="apply-btn" type="submit"><span class="t">신청하고 결제하기</span> <span class="ar">&#8594;</span></button>
+      <span class="cta-note">제출하면 토스페이먼츠 결제창으로 이동합니다</span>
+    </div>
+  </form>
 </div></section>
 
 <!-- FAQ -->
@@ -757,7 +862,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;col
 <section class="final"><div class="wrap">
   <h2>오늘 이후부터는<br>AI를 검색이 아니라 직원처럼 쓰게 됩니다</h2>
   <p>남들이 잘하는 것처럼 보이는 이유는 대단한 걸 알아서가 아닙니다. 말 거는 방식이 다를 뿐이에요. 그 차이를 오늘 3시간 안에 넘깁니다.</p>
-  <div class="ghost"><a href="https://shoocreamvillage.notion.site/9715e8593cb6834693cd01b141f57e7e" target="_blank" rel="noopener">신청하기 <span class="ar">&#8594;</span></a></div>
+  <div class="ghost"><a href="#apply">신청하기 <span class="ar">&#8594;</span></a></div>
   <p class="prep"><b>준비물</b> · 노트북 · 충전기 · 휴대폰<br><b>문의</b> · 인스타그램 <a href="https://www.instagram.com/shooni_ai/" target="_blank" rel="noopener" style="color:var(--purple-lt)">@shooni_ai</a> DM</p>
 </div></section>
 
@@ -779,8 +884,8 @@ footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;col
 </footer>
 
 <div class="sticky" id="stick" hidden><div class="wrap">
-  <span class="info"><b>9.19(토)·10.4(일) 15–18시 · 강남</b> · 수강료 300,000원</span>
-  <a class="btn" href="https://shoocreamvillage.notion.site/9715e8593cb6834693cd01b141f57e7e" target="_blank" rel="noopener">신청서 작성하기 <span class="ar">&#8594;</span></a>
+  <span class="info"><b>11.8(일) 15–18시 · 강남</b> · 수강료 300,000원</span>
+  <a class="btn" href="#apply">신청서 작성하기 <span class="ar">&#8594;</span></a>
 </div></div>
 
 <script>
@@ -788,5 +893,65 @@ footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:12.5px;col
 </script>
 
 <script>(function(){var h=document.querySelector("header.site");if(h){addEventListener("scroll",function(){h.classList.toggle("scrolled",window.scrollY>40);},{passive:true});}var mt=document.querySelector(".menu-toggle");if(mt){mt.addEventListener("click",function(){document.body.classList.toggle("menu-open");});}document.querySelectorAll(".overlay a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});})();</script>
+<script>
+(function(){
+  // 토스페이먼츠 링크페이 결제 링크
+  // 상점관리자 > 링크페이 > 판매상품 > "링크" 버튼으로 복사해서 아래에 붙여넣는다.
+  var PAY_URL = "https://buy.tosspayments.com/products/vlBoPnMcj4";
+
+  // 신청서가 쌓이는 곳. 이 두 값은 공개돼도 되는 값이고,
+  // supabase/applications.sql 의 RLS 가 "넣기만 되고 읽기는 안 되게" 막는다.
+  var SB_URL = "https://kflcxhaazgdhcvpfqqic.supabase.co";
+  var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmbGN4aGFhemdkaGN2cGZxcWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNzQ0NDksImV4cCI6MjEwMzg1MDQ0OX0.2chZezyUG9ux-L3D5MO_GWNdGizHz2iAhYCqkgqlrzk";
+
+  var FIELDS = ["name","phone","email","schedule","job","ai_level","reason","want","note"];
+
+  var f = document.getElementById("apply-form");
+  if(!f) return;
+  var btn = document.getElementById("apply-btn");
+  var lab = btn.querySelector(".t");
+  var err = document.getElementById("apply-err");
+
+  function fail(msg){
+    err.textContent = msg;
+    btn.disabled = false;
+    lab.textContent = "신청하고 결제하기";
+  }
+
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    err.textContent = "";
+
+    if(!PAY_URL){
+      err.textContent = "결제 링크가 아직 연결되지 않았어요. 인스타그램 DM으로 알려주세요.";
+      return;
+    }
+
+    btn.disabled = true;
+    lab.textContent = "보내는 중…";
+
+    var d = new FormData(f);
+    var row = { course:"1day", consent:true, consent_at:new Date().toISOString() };
+    FIELDS.forEach(function(k){ row[k] = (d.get(k) || "").trim(); });
+
+    fetch(SB_URL + "/rest/v1/applications", {
+      method: "POST",
+      headers: {
+        "apikey": SB_KEY,
+        "Authorization": "Bearer " + SB_KEY,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(row)
+    }).then(function(r){
+      if(!r.ok) throw new Error("HTTP " + r.status);
+      location.href = PAY_URL;
+    }).catch(function(){
+      fail("신청서를 보내지 못했어요. 잠시 후 다시 시도하거나 인스타그램 DM으로 알려주세요.");
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

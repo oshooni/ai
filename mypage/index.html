@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>내 정보 — 노슈니 (NOSHOONI)</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+:root{--bg:#0e0e10;--bg-2:#141317;--purple:#7c3aed;--purple-lt:#a78bfa;
+--cream:#f0ecff;--text:#e9e6f2;--muted:#98929f;--faint:#6c6674;
+--line:rgba(240,236,255,.12);--line-2:rgba(240,236,255,.22);--ease:cubic-bezier(.16,1,.3,1);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:"Inter","Pretendard",sans-serif;
+letter-spacing:-.02em;line-height:1.7;-webkit-font-smoothing:antialiased;
+min-height:100vh;display:flex;flex-direction:column;}
+a{color:inherit;text-decoration:none;} img{display:block;max-width:100%;}
+::selection{background:var(--purple);color:#fff;}
+.mono{font-family:"Inter",monospace;font-size:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:500;}
+:focus-visible{outline:2px solid var(--purple-lt);outline-offset:3px;border-radius:6px;}
+
+header.site{display:flex;justify-content:center;padding:30px 24px;}
+header.site img{height:24px;width:auto;}
+
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:20px 24px 70px;}
+.card{width:100%;max-width:468px;}
+.eb{color:var(--purple-lt);text-align:center;margin-bottom:14px;}
+h1{font-size:clamp(26px,4.6vw,32px);font-weight:800;letter-spacing:-.04em;
+color:var(--cream);text-align:center;}
+
+.me{margin-top:34px;padding:28px 24px;border:1px solid var(--line);border-radius:16px;background:var(--bg-2);}
+.me .face{display:flex;align-items:center;gap:15px;padding-bottom:22px;border-bottom:1px solid var(--line);}
+.me .face img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;}
+.me .face .noface{width:56px;height:56px;border-radius:50%;flex:none;background:var(--purple);
+display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:800;color:#fff;}
+.me .face .nm{font-size:19px;font-weight:700;letter-spacing:-.03em;color:var(--cream);}
+.me .face .by{font-size:13px;color:var(--faint);}
+
+dl{margin-top:22px;display:grid;grid-template-columns:96px 1fr;gap:13px 16px;font-size:14.5px;}
+dt{color:var(--faint);} dd{color:var(--text);word-break:break-all;}
+dd.empty{color:var(--faint);}
+
+.msg{margin-top:20px;padding:13px 15px;border-radius:10px;font-size:14px;line-height:1.65;
+border:1px solid var(--line-2);background:var(--bg-2);color:var(--muted);}
+.msg.err{border-color:rgba(255,120,120,.4);color:#ffb3b3;}
+
+.actions{margin-top:24px;display:flex;flex-direction:column;gap:10px;}
+.btn{display:block;width:100%;padding:14px 18px;border-radius:12px;text-align:center;cursor:pointer;
+font-family:inherit;font-size:15px;font-weight:600;letter-spacing:-.02em;
+background:none;border:1px solid var(--line-2);color:var(--cream);
+transition:border-color .25s var(--ease),color .25s var(--ease);}
+.btn:hover{border-color:var(--purple-lt);color:var(--purple-lt);}
+.btn.ghost{border:none;color:var(--faint);font-size:13.5px;padding:8px;}
+.btn.ghost:hover{color:var(--purple-lt);}
+
+footer.site{padding:22px 24px 34px;text-align:center;}
+footer.site .mono{color:var(--faint);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a href="/" aria-label="NOSHOONI"><img decoding="async" width="427" height="89" src="/images/noshooni-5f95636263.webp" alt="NOSHOONI" /></a>
+</header>
+
+<main>
+  <div class="card" id="card" hidden>
+    <p class="eb mono">My page</p>
+    <h1>내 정보</h1>
+
+    <p class="msg" id="msg" hidden></p>
+
+    <div class="me">
+      <div class="face">
+        <div id="face"></div>
+        <div>
+          <div class="nm" id="name">—</div>
+          <div class="by" id="by">—</div>
+        </div>
+      </div>
+
+      <dl>
+        <dt>이메일</dt><dd id="email">—</dd>
+        <dt>가입일</dt><dd id="joined">—</dd>
+      </dl>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="/">노슈니 홈으로</a>
+      <button class="btn ghost" id="out" type="button">로그아웃</button>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <span class="mono">© 2026 노슈니 (NOSHOONI)</span>
+</footer>
+
+<script type="module">
+import { sb, 현재회원, 로그아웃, 에러문구 } from "/js/auth.js";
+
+const $ = (id) => document.getElementById(id);
+
+function 알림(글, 종류 = "info") {
+  $("msg").textContent = 글;
+  $("msg").className = "msg " + 종류;
+  $("msg").hidden = false;
+}
+
+const 수단이름 = { google: "구글 계정으로 로그인", kakao: "카카오 계정으로 로그인", email: "이메일로 로그인" };
+
+const 회원 = await 현재회원();
+if (!회원) {
+  // 로그인 안 한 사람은 내용을 보기 전에 돌려보낸다.
+  location.replace("/login/");
+} else {
+  $("card").hidden = false;
+
+  // profiles 표를 직접 읽는다. 가입 트리거가 제대로 돌았는지 여기서 드러난다.
+  const { data: 프로필, error } = await sb
+    .from("profiles")
+    .select("name, email, avatar_url, provider, created_at")
+    .eq("id", 회원.id)
+    .maybeSingle();
+
+  if (error) 알림(에러문구(error), "err");
+  else if (!프로필) 알림("회원 표에 아직 줄이 만들어지지 않았습니다. Supabase 의 가입 트리거를 확인해주세요.", "err");
+
+  // 표에 값이 없으면 로그인 정보로 채워 보여준다 (화면이 비어 보이지 않게).
+  const 메타 = 회원.user_metadata ?? {};
+  const 이름 = 프로필?.name || 메타.full_name || 메타.name || "이름 없음";
+  const 이메일 = 프로필?.email || 회원.email || "";
+  const 사진 = 프로필?.avatar_url || 메타.avatar_url || "";
+  const 수단 = 프로필?.provider || 회원.app_metadata?.provider || "";
+
+  $("name").textContent = 이름;
+  $("by").textContent = 수단이름[수단] ?? 수단;
+
+  if (사진) {
+    const img = document.createElement("img");
+    img.src = 사진;
+    img.alt = "";
+    img.referrerPolicy = "no-referrer";       // 구글·카카오 이미지 서버가 거절하지 않게
+    img.onerror = () => (img.outerHTML = `<div class="noface">${이름.slice(0, 1)}</div>`);
+    $("face").replaceChildren(img);
+  } else {
+    $("face").innerHTML = `<div class="noface">${이름.slice(0, 1)}</div>`;
+  }
+
+  if (이메일) $("email").textContent = 이메일;
+  else {
+    $("email").textContent = "받지 못함 (카카오는 비즈 앱 전환 후에만 제공)";
+    $("email").className = "empty";
+  }
+
+  const 가입시각 = 프로필?.created_at ?? 회원.created_at;
+  $("joined").textContent = new Date(가입시각).toLocaleDateString("ko-KR", {
+    year: "numeric", month: "long", day: "numeric",
+  });
+}
+
+$("out").addEventListener("click", 로그아웃);
+</script>
+</body>
+</html>

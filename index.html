@@ -66,6 +66,10 @@
   .topnav{display:none;align-items:center;gap:30px;}
   .topnav a{font-size:14px;font-weight:500;color:var(--cream);letter-spacing:-.01em;transition:opacity .3s var(--ease);}
   .topnav a:hover{opacity:.5;}
+  /* 로그인만 테두리를 둘러 메뉴와 구분한다 */
+  .topnav a.login{border:1px solid var(--line-2);border-radius:999px;padding:7px 15px;
+    color:var(--purple-lt);transition:border-color .3s var(--ease),background .3s var(--ease);}
+  .topnav a.login:hover{opacity:1;border-color:var(--purple-lt);background:rgba(124,58,237,.14);}
   header.site{transition:background .4s var(--ease),backdrop-filter .4s var(--ease);}
   header.site.scrolled{background:rgba(14,14,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
   @media (min-width:981px){ .topnav{display:flex;} .menu-toggle{display:none;} }
@@ -257,6 +261,7 @@
     <a href="/blog/">블로그</a>
     <a href="https://shoocreamvillage.notion.site/aireview?v=3b85e8593cb680afabf7000c0745be0d&source=copy_link" target="_blank" rel="noopener">후기</a>
     <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의</a>
+    <a href="/login/" class="login">로그인</a>
   </nav>
   <button class="menu-toggle" aria-label="메뉴 열기">MENU<span class="plus">+</span></button>
 </header>
@@ -270,6 +275,7 @@
   <a href="/blog/">블로그<span class="idx">06</span></a>
   <a href="https://shoocreamvillage.notion.site/aireview?v=3b85e8593cb680afabf7000c0745be0d&source=copy_link" target="_blank" rel="noopener">후기<span class="idx">07</span></a>
   <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의<span class="idx">08</span></a>
+  <a href="/login/">로그인<span class="idx">09</span></a>
   <div class="ov-foot">
     <span class="mono">NOSHOONI</span>
     <span class="mono">Seoul · Sinsa</span>
@@ -466,6 +472,7 @@
       <h4>Contact</h4>
       <a href="/about">강사 소개 ↗</a>
       <a href="https://shoocreamvillage.notion.site/2325e8593cb68128b06eedc97a0aa64b?pvs=105" target="_blank" rel="noopener">문의하기 ↗</a>
+      <a href="/privacy/">개인정보 처리방침 ↗</a>
     </div>
   </div>
   <div class="foot-bar">

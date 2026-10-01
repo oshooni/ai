@@ -537,5 +537,36 @@
 })();
 </script>
 <script>(function(){var h=document.querySelector("header.site");addEventListener("scroll",function(){h.classList.toggle("scrolled",window.scrollY>40);},{passive:true});})();</script>
-<script>(function(){function R(){document.querySelectorAll(".reveal,.rv").forEach(function(e){e.classList.add("visible","in");});}try{if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible","in");io.unobserve(e.target);}});},{threshold:0.08,rootMargin:"0px 0px -5% 0px"});document.querySelectorAll(".reveal,.rv").forEach(function(e){io.observe(e);});setTimeout(R,1200);}else{R();}}catch(e){R();}var mt=document.querySelector(".menu-toggle");if(mt){mt.addEventListener("click",function(){document.body.classList.toggle("menu-open");});}document.querySelectorAll(".overlay a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});})();</script></body>
+<script>(function(){function R(){document.querySelectorAll(".reveal,.rv").forEach(function(e){e.classList.add("visible","in");});}try{if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible","in");io.unobserve(e.target);}});},{threshold:0.08,rootMargin:"0px 0px -5% 0px"});document.querySelectorAll(".reveal,.rv").forEach(function(e){io.observe(e);});setTimeout(R,1200);}else{R();}}catch(e){R();}var mt=document.querySelector(".menu-toggle");if(mt){mt.addEventListener("click",function(){document.body.classList.toggle("menu-open");});}document.querySelectorAll(".overlay a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});})();</script>
+<script type="module">
+/* 로그인한 사람에게는 헤더의 "로그인"을 "로그아웃"으로 바꾼다.
+   로그인 여부는 브라우저에 저장된 Supabase 세션만 보고 판단한다.
+   Supabase 라이브러리는 실제로 로그아웃을 누를 때만 불러온다 —
+   그래야 홈페이지 첫 로딩에 40KB 를 얹지 않는다. */
+const 로그인됨 = (() => {
+  try {
+    for (const 키 of Object.keys(localStorage)) {
+      if (!/^sb-.+-auth-token$/.test(키)) continue;
+      const 세션 = JSON.parse(localStorage.getItem(키));
+      if (세션 && 세션.expires_at * 1000 > Date.now()) return true;
+    }
+  } catch (e) {
+    /* 시크릿 창처럼 저장소를 못 읽는 경우 — 로그인 안 한 것으로 본다 */
+  }
+  return false;
+})();
+
+if (로그인됨) {
+  for (const 링크 of document.querySelectorAll('a[href="/login/"]')) {
+    링크.firstChild.nodeValue = "로그아웃";   /* 모바일 메뉴의 번호(span)는 그대로 둔다 */
+    링크.href = "#";
+    링크.addEventListener("click", async (e) => {
+      e.preventDefault();
+      링크.firstChild.nodeValue = "로그아웃 중…";
+      const { 로그아웃 } = await import("/js/auth.js");
+      await 로그아웃();
+    });
+  }
+}
+</script></body>
 </html>

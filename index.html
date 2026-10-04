@@ -168,6 +168,13 @@
   .prod .ic{font-size:26px;display:block;margin-bottom:22px;}
   .prod h3{font-size:clamp(18px,1.9vw,22px);font-weight:600;letter-spacing:-.03em;color:var(--cream);margin-bottom:12px;}
   .prod p{font-size:15px;line-height:1.7;color:var(--muted);font-weight:400;}
+  a.prod{text-decoration:none;transition:border-color .3s ease,transform .3s ease;}
+  a.prod:hover{border-color:var(--purple,#7c3aed);transform:translateY(-2px);}
+  .prod .meta{font-size:13.5px;color:var(--muted);margin-top:14px;}
+  .prod .buyrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-top:10px;}
+  .prod .amt{font-size:20px;font-weight:700;color:var(--cream);letter-spacing:-.02em;}
+  .prod .go{font-size:14px;color:var(--purple-lt,#a78bfa);}
+  .prod-lab{font-size:14px;color:var(--muted);margin:54px 0 20px;}
 
   /* kakao channel notice */
   .channel-note{max-width:1120px;margin:60px auto 20px;padding:0 24px;}
@@ -431,14 +438,29 @@
   <div class="sec-head">
     <div class="eb mono reveal">Products &amp; Services</div>
     <h2 class="reveal">판매 상품 · 서비스</h2>
-    <p class="note reveal">그동안 진행해 온 강의와 서비스입니다. 문의는 우측 상단 <b>문의</b>를 눌러 남겨주세요.</p>
+    <p class="note reveal">지금 신청하실 수 있는 클래스입니다. 금액과 일정, 환불 규정은 상세 페이지에 적어뒀습니다.</p>
   </div>
   <div class="prod-grid">
-    <div class="prod reveal"><span class="ic">🚀</span><h3>AI 원데이 클래스</h3><p>하루만에 AI로 내 사이트를 만들고 배포하는 시간</p></div>
+    <a class="prod reveal" href="/1day/">
+      <span class="ic">🚀</span>
+      <h3>AI 원데이 클래스</h3>
+      <p>하루만에 AI로 내 사이트를 만들고 배포하는 시간. 비전공자 대상 오프라인 수업입니다.</p>
+      <p class="meta">2026년 11월 8일(일) 15:00–18:00 · 3시간 · 서울 강남<br/>정원 소수정예 · 환불 규정은 상세 페이지 하단 안내</p>
+      <span class="buyrow"><span class="amt">300,000원</span><span class="go">상세 보기 및 신청 &#8594;</span></span>
+    </a>
+  </div>
+
+  <p class="prod-lab reveal">아래는 일정과 금액을 문의 후 협의해 진행하는 서비스입니다.</p>
+
+  <div class="prod-grid">
     <div class="prod reveal"><span class="ic">🎓</span><h3>AI 실무 강의</h3><p>Claude · Claude Code를 활용해 실제 업무와 사업에 바로 쓰는 오프라인 집중 강의</p></div>
     <div class="prod reveal"><span class="ic">🎬</span><h3>AI 콘텐츠 제작 강의</h3><p>인스타그램 카드뉴스 · 콘텐츠 자동화 등 AI 기반 콘텐츠 제작 실습 과정</p></div>
+    <!-- 구매 경로가 없어 숨김 (토스 심사 요청). 판매 시작하면 주석 해제
     <div class="prod reveal"><span class="ic">🧩</span><h3>노션 · AI 템플릿</h3><p>업무 생산성을 높이는 노션 템플릿과 AI 활용 템플릿 판매</p></div>
+    -->
+    <!-- 구매 경로가 없어 숨김 (토스 심사 요청). 판매 시작하면 주석 해제
     <div class="prod reveal"><span class="ic">📘</span><h3>전자책</h3><p>AI로 SNS 브랜딩하기 등 비전공자를 위한 실전 AI 활용 전자책</p></div>
+    -->
     <div class="prod reveal"><span class="ic">⚡</span><h3>AI 생산성 강의</h3><p>노션과 AI를 결합해 반복 업무를 자동화하는 생산성 향상 과정</p></div>
     <div class="prod reveal"><span class="ic">🏢</span><h3>기업 컨설팅</h3><p>팀 단위 AI 도입과 업무 자동화를 설계하는 맞춤형 교육 컨설팅</p></div>
     <div class="prod reveal"><span class="ic">💬</span><h3>개인 컨설팅</h3><p>1:1로 내 일에 맞는 AI 활용법과 콘텐츠 자동화를 잡아주는 컨설팅</p></div>
@@ -456,7 +478,7 @@
       <div class="biz">
         <span>노슈니 (NOSHOONI)</span> · 대표 오수인<br/>
         비전공자를 위한 AI 교육 · 강의 · 컨설팅<br/>
-        Seoul, Korea
+        상호 슈크림마을 · 사업자등록번호 <span style="white-space:nowrap">290-17-02346</span><br/>경기도 광주시 창뜰윗길 30-2 창뜰빌라 가동 302호<br/>전화 010-6886-6145
       </div>
     </div>
     <div class="foot-col">

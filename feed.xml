@@ -6,7 +6,16 @@
   <atom:link href="https://noshooni.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>비개발자가 AI로 직접 만들기 위해 알아둘 것들. 클로드와 클로드 코드, 콘텐츠 자동화 실무 글과 매주 화·목 AI 소식을 올립니다.</description>
   <language>ko-KR</language>
-  <lastBuildDate>Sat, 31 Oct 2026 06:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 03 Nov 2026 06:00:00 +0000</lastBuildDate>
+  <item>
+    <title>클로드 요금제 개편, 맥스 20x가 울트라로 바뀌면 무엇이 달라지나요?</title>
+    <link>https://noshooni.com/blog/9/</link>
+    <guid isPermaLink="true">https://noshooni.com/blog/9/</guid>
+    <pubDate>Tue, 03 Nov 2026 06:00:00 +0000</pubDate>
+    <dc:creator>오수인(노슈니)</dc:creator>
+    <category>AI 소식</category>
+    <description>2026년 10월 30일 앤트로픽이 클로드 맥스 20x를 울트라로 바꾸고 인증된 울트라 계정의 5시간 제한을 없앴습니다. 프로·맥스·울트라 차이, 주간 한도, 인증 확인법, 요금제 고르는 기준을 정리했습니다.</description>
+  </item>
   <item>
     <title>AI 학습 차단, robots.txt 한 번으로? 오픈AI·구글·MS 공통 신호 정리</title>
     <link>https://noshooni.com/blog/8/</link>

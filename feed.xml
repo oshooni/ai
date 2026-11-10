@@ -6,7 +6,16 @@
   <atom:link href="https://noshooni.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>비개발자가 AI로 직접 만들기 위해 알아둘 것들. 클로드와 클로드 코드, 콘텐츠 자동화 실무 글과 매주 화·목 AI 소식을 올립니다.</description>
   <language>ko-KR</language>
-  <lastBuildDate>Sun, 08 Nov 2026 06:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 10 Nov 2026 06:00:00 +0000</lastBuildDate>
+  <item>
+    <title>클로드 페이블 5.2, 무엇이 달라졌고 내 요금제에선 어떻게 쓰나요?</title>
+    <link>https://noshooni.com/blog/11/</link>
+    <guid isPermaLink="true">https://noshooni.com/blog/11/</guid>
+    <pubDate>Tue, 10 Nov 2026 06:00:00 +0000</pubDate>
+    <dc:creator>오수인(노슈니)</dc:creator>
+    <category>AI 소식</category>
+    <description>2026년 11월 9일 앤트로픽이 클로드 페이블 5.2를 출시했습니다. 5.1과 달라진 점, 프로·맥스·울트라 요금제별 사용 조건, 11월 16일까지의 출시 기념 혜택, 회사에서 확인할 점을 정리했습니다.</description>
+  </item>
   <item>
     <title>챗GPT 이미지 2.6, 무엇이 달라졌나요? GIF 만들기와 편집 프롬프트 정리</title>
     <link>https://noshooni.com/blog/10/</link>

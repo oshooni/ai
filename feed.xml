@@ -6,7 +6,16 @@
   <atom:link href="https://noshooni.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>비개발자가 AI로 직접 만들기 위해 알아둘 것들. 클로드와 클로드 코드, 콘텐츠 자동화 실무 글과 매주 화·목 AI 소식을 올립니다.</description>
   <language>ko-KR</language>
-  <lastBuildDate>Tue, 10 Nov 2026 06:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 12 Nov 2026 06:00:00 +0000</lastBuildDate>
+  <item>
+    <title>클로드 시트·화이트보드 출시, 무엇을 할 수 있고 어디까지 되나요?</title>
+    <link>https://noshooni.com/blog/12/</link>
+    <guid isPermaLink="true">https://noshooni.com/blog/12/</guid>
+    <pubDate>Thu, 12 Nov 2026 06:00:00 +0000</pubDate>
+    <dc:creator>오수인(노슈니)</dc:creator>
+    <category>AI 소식</category>
+    <description>2026년 11월 10일 앤트로픽이 클로드 시트·화이트보드(베타)와 클로드 데이터를 내놓고 노션·어도비 같은 앱을 클로드 안에서 여는 기능을 넓혔습니다. 쓸 수 있는 요금제, 업무 활용법, 아직 안 되는 것을 정리했습니다.</description>
+  </item>
   <item>
     <title>클로드 페이블 5.2, 무엇이 달라졌고 내 요금제에선 어떻게 쓰나요?</title>
     <link>https://noshooni.com/blog/11/</link>
